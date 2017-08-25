@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="project" default="help">
+    <!-- Import Subsite Starterkit build file for loading build system. -->
+    <import file="${project.basedir}/vendor/ec-europa/ssk/build.xml" />
+</project>
