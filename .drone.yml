@@ -48,6 +48,8 @@ pipeline:
     image: fpfis/php56-dev
     commands:
       - ./ssk/phing test-run-behat
+    volumes:
+      - /cache:/cache
 
   build-dist:
     image: fpfis/php56-dev
