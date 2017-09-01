@@ -20,13 +20,6 @@ services:
 
 pipeline:
 
-  prepare-mysql:
-    group: prepare
-    image: fpfis/mysql56
-    commands:
-      - sleep 10
-      - mysqladmin -h mysql -uroot create database
-
   prepare-php:
     group: prepare
     image: fpfis/php56-dev
