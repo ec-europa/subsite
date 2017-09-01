@@ -47,7 +47,7 @@ pipeline:
   install:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing build-project-clean -D'drupal.db.host'='mysql' -D'drupal.db.name'=database
+      - ./ssk/phing install-project-clean -D'drupal.db.host'='mysql' -D'drupal.db.name'=database
     volumes:
       - /cache:/cache
 
