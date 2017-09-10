@@ -9,14 +9,14 @@ services:
      - DOCUMENT_ROOT=/test/ssk/platform
   mysql:
     image: fpfis/mysql56
-  ecas:
-    image: fpfis-acpcloud622hotmail.azurecr.io/ecas
+#  ecas:
+#    image: fpfis-acpcloud622hotmail.azurecr.io/ecas
   selenium:
     image: selenium/standalone-firefox
     environment:
       - SE_OPTS=-log /tmp/selenium.log
-  solr:
-    image: fpfis/solr5
+#  solr:
+#    image: fpfis/solr5
 
 pipeline:
 
@@ -24,7 +24,7 @@ pipeline:
     image: fpfis/php56-dev
     commands:
       - composer update
-      - ./ssk/phing
+#      - ./ssk/phing
     volumes:
       - /cache:/cache
 
@@ -46,10 +46,7 @@ pipeline:
   test:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing test-behat-setup
-      - cat ./tests/behat.yml
-      - ./ssk/phing test-composer-install
-      - ./ssk/phing test-behat-exec
+      - ./ssk/phing test-run-behat
     volumes:
       - /cache:/cache
 
