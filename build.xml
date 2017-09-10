@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="project-subsite" default="help">
-    <!-- Import Subsite Starterkit build file for loading build system. -->
-    <import file="${project.basedir}/vendor/ec-europa/ssk/build.xml" />
+<project name="my-project" description="The link between your project and starterkit." default="">
+
+    <property name="toolkit.dir" value="${project.basedir}/vendor/ec-europa/ssk" />
+    <import file="${toolkit.dir}/includes/phing/build.xml" />
+
 </project>
