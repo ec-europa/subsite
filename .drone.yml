@@ -29,15 +29,6 @@ pipeline:
     volumes:
       - /cache:/cache
 
-  prepare-test:
-    image: fpfis/php56-dev
-    commands:
-      - ./ssk/phing test-behat-setup
-      - cat ./tests/behat.yml
-    volumes:
-      - /cache:/cache
-
-
   build-dev:
     image: fpfis/php56-dev
     commands:
@@ -56,7 +47,10 @@ pipeline:
   test:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing test-run-behat -D'behat.browser.name'='chrome'
+      - ./ssk/phing test-behat-setup
+      - cat ./tests/behat.yml
+      - ./ssk/phing test-composer-install
+      - ./ssk/phing test-behat-exec
     volumes:
       - /cache:/cache
 
