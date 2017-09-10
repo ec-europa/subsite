@@ -6,13 +6,13 @@ services:
   web:
     image: fpfis/php56-dev
     environment:
-     - DOCUMENT_ROOT=/test/ssk/platform
+     - DOCUMENT_ROOT=/test/ssk/build
   mysql:
     image: fpfis/mysql56
 #  ecas:
 #    image: fpfis-acpcloud622hotmail.azurecr.io/ecas
   selenium:
-    image: selenium/standalone-chrome
+    image: selenium/standalone-firefox
     environment:
       - SE_OPTS=-log /tmp/selenium.log
 #  solr:
