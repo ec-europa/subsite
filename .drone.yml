@@ -49,14 +49,14 @@ pipeline:
   install:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing install-project-clean -D'drupal.db.host'='mysql' -D'drupal.db.name'=database
+      - ./ssk/phing install-project-clean
     volumes:
       - /cache:/cache
 
   test:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing test-run-behat
+      - ./ssk/phing test-run-behat -D'behat.browser.name'='chrome'
     volumes:
       - /cache:/cache
 
