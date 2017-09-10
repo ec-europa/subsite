@@ -46,6 +46,8 @@ pipeline:
   test:
     image: fpfis/php56-dev
     commands:
+      - ls -la /test/ssk/build/sites/default
+      - chmod -R 777 /test/ssk/build/sites/default/tmp /test/ssk/build/sites/default/files
       - ./ssk/phing test-run-behat
     volumes:
       - /cache:/cache
