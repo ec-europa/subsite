@@ -6,7 +6,7 @@ services:
   web:
     image: fpfis/php56-dev
     environment:
-     - DOCUMENT_ROOT=/test/ssk/platform
+     - DOCUMENT_ROOT=/test/ssk/build
   mysql:
     image: fpfis/mysql56
 #  ecas:
@@ -15,8 +15,8 @@ services:
     image: selenium/standalone-firefox
     environment:
       - SE_OPTS=-log /tmp/selenium.log
-#  solr:
-#    image: fpfis/solr5
+  solr:
+    image: fpfis/solr5
 
 pipeline:
 
