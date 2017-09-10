@@ -9,27 +9,26 @@ services:
      - DOCUMENT_ROOT=/test/ssk/platform
   mysql:
     image: fpfis/mysql56
-#  ecas:
-#    image: fpfis-acpcloud622hotmail.azurecr.io/ecas
+  ecas:
+    image: fpfis-acpcloud622hotmail.azurecr.io/ecas
   selenium:
     image: selenium/standalone-firefox
     environment:
       - SE_OPTS=-log /tmp/selenium.log
-#  solr:
-#    image: fpfis/solr5
+  solr:
+    image: fpfis/solr5
 
 pipeline:
 
-  prepare-php:
-    group: prepare
+  toolkit:
     image: fpfis/php56-dev
     commands:
       - composer update
-#      - ./ssk/phing
+      - ./ssk/phing
     volumes:
       - /cache:/cache
 
-  build-dev:
+  build:
     image: fpfis/php56-dev
     commands:
       - ./ssk/phing project-build-platform
@@ -57,7 +56,7 @@ pipeline:
   build-dist:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing build-platform-dist -D'composer.bin'=$(which composer)
+      - ./ssk/phing build-platform-dist
       - tar -czf ${DRONE_REPO_NAME}-${DRONE_TAG}.tar.gz -C build .
     when:
       event: tag
