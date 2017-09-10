@@ -25,7 +25,7 @@ pipeline:
     image: fpfis/php56-dev
     commands:
       - composer update
-      - ./ssk/phing
+#      - ./ssk/phing
     volumes:
       - /cache:/cache
 
