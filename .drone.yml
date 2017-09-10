@@ -32,7 +32,7 @@ pipeline:
   build-dev:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing build-project-platform
+      - ./ssk/phing project-build-platform
       - ./ssk/phing build-subsite-dev -D behat.base_url='http://web:8080' -D'behat.wd_host'='http://selenium:4444/wd/hub' -D'behat.browser_name'='chrome'
     volumes:
       - /cache:/cache
