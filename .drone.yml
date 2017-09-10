@@ -29,6 +29,15 @@ pipeline:
     volumes:
       - /cache:/cache
 
+  prepare-test:
+    image: fpfis/php56-dev
+    commands:
+      - ./ssk/phing test-behat-setup
+      - cat ./tests/behat.yml
+    volumes:
+      - /cache:/cache
+
+
   build-dev:
     image: fpfis/php56-dev
     commands:
@@ -47,7 +56,7 @@ pipeline:
   test:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing test-run-behat -D behat.base_url='http://localhost:8080' -D'behat.wd_host'='http://selenium:4444/wd/hub' -D'behat.browser_name'='chrome'
+      - ./ssk/phing test-run-behat
     volumes:
       - /cache:/cache
 
