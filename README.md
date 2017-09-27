@@ -15,7 +15,7 @@ also containse tools for Quality Assurance.</p>
 There are three separate ways of using the NextEuropa project. Either
 you use an environment with Docker installed, an environment without.
 Or a mix of both.
-  
+
 <details><summary><b>Docker Solo</b></summary>
 
 This requirement for docker only requires docker in docker support.
@@ -46,7 +46,7 @@ everything you need.<br>*Required components*:
 
 ## Installation
 The build system for nexteuropa projects is packaged in a toolkit that can
-be found here: [ec-europa/ssk](https://github.com/ec-europa/ssk). This is
+be found here: [ec-europa/toolkit](https://github.com/ec-europa/toolkit). This is
 the only required composer package to set up your project. If your project
 is registered as a package as well you can use the composer create-project
 command to complete installation in one single command:
@@ -87,7 +87,7 @@ not be shared with the rest of the team. Make sure you never commit this file.
     <b>build.properties.dist</b><br>
 <!-- Keepit simple for now
     <sup>
-      <code>never alter</code> 
+      <code>never alter</code>
       <code>always commit</code>
       </sup>
 -->
@@ -103,9 +103,9 @@ what new properties were introduced or deprecated.
 <details><summary><b>build.properties</b><br>
 <!-- Keepit simple for now
   <sup>
-    <code>always commit</code> 
+    <code>always commit</code>
     <code>no credentials</code><br>
-    <code>no environments</code> 
+    <code>no environments</code>
     <code>needed for builds</code>
   </sup>
 -->
@@ -128,7 +128,7 @@ target.
 
 Beware: the list below is under heavy development.
 
-<details><summary><b>./ssk/phing</b> or <b>./ssk/phing help</b></summary>
+<details><summary><b>./toolkit/phing</b> or <b>./toolkit/phing help</b></summary>
 
 ```
 Main targets:
