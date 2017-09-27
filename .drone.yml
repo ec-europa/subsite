@@ -1,12 +1,12 @@
 workspace:
   base: /test
-  path: ssk
+  path: toolkit
 
 services:
   web:
     image: fpfis/php56-dev
     environment:
-     - DOCUMENT_ROOT=/test/ssk/build
+     - DOCUMENT_ROOT=/test/toolkit/build
   mysql:
     image: fpfis/mysql56
 #  ecas:
@@ -30,29 +30,29 @@ pipeline:
   build:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing project-build-platform
-      - ./ssk/phing build-subsite-dev
+      - ./toolkit/phing project-build-platform
+      - ./toolkit/phing build-subsite-dev
     volumes:
       - /cache:/cache
 
   install:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing install-project-clean
+      - ./toolkit/phing install-project-clean
     volumes:
       - /cache:/cache
 
   test:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing test-run-behat
+      - ./toolkit/phing test-run-behat
     volumes:
       - /cache:/cache
 
   build-dist:
     image: fpfis/php56-dev
     commands:
-      - ./ssk/phing build-platform-dist
+      - ./toolkit/phing build-platform-dist
       - tar -czf ${DRONE_REPO_NAME}-${DRONE_TAG}.tar.gz -C build .
     when:
       event: tag

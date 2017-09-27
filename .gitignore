@@ -17,8 +17,8 @@ tests/phpunit.xml
 
 # Ignore build artifacts.
 bin/
-ssk
-ssk-*
+toolkit
+toolkit-*
 build/
 dist/
 .tmp/
