@@ -19,4 +19,4 @@ composer create-project ec-europa/subsite project-folder-name dev-master --no-in
 This will clone the current repository and install the toolkit. After this is done
 the .git/ files of the template repository will be removed. This sets up a clean
 toolkit that you can `git init` your own project on. For any information on toolkit
-usage, please refer to it's documentation: [ec-europa/toolkit](https://github.com/ec-europa/toolkit)
+usage, please refer to its documentation: [ec-europa/toolkit](https://github.com/ec-europa/toolkit)
