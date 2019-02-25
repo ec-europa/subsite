@@ -13,7 +13,7 @@ the only required composer package to set up your project. To iniated a new
 project you can execute the following command:
 
 ```bash
-composer create-project ec-europa/subsite project-folder-name dev-master --no-interaction
+composer create-project ec-europa/subsite project-folder-name dev-release/34.x --no-interaction
 ```
 
 This will clone the current repository and install the toolkit. After this is done
