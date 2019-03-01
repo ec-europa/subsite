@@ -3,7 +3,6 @@
     "description": "Subsite template to initiate a new subsite project that uses toolkit.",
     "homepage": "https://github.com/ec-europa/toolkit#nexteuropa-toolkit",
     "license": "EUPL-1.1",
-    "minimum-stability": "dev",
     "require": {
         "ec-europa/toolkit": "3.*"
     },
