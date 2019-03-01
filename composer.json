@@ -10,6 +10,9 @@
     "scripts": {
         "post-install-cmd": "@toolkit-install",
         "post-update-cmd": "@toolkit-install",
-        "toolkit-install": "PROJECT=$(pwd) composer run-script toolkit-install -d ./vendor/ec-europa/toolkit"
+        "toolkit-install": [
+            "PROJECT=$(pwd) cp -rf ./vendor/ec-europa/toolkit/resources/drupal-template ./",
+            "ln -sf ./vendor/bin/run toolkit"
+        ]
     }
 }
