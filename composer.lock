@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca6fcbc53c2ed970b3012173136af5c3",
+    "content-hash": "9e06bffbcaed4b8d37ea9b671eff2816",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7972,23 +7972,23 @@
         },
         {
             "name": "ec-europa/toolkit",
-            "version": "4.0.6",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ec-europa/toolkit.git",
-                "reference": "aca2f5f3c6dd3ab2a1a26a8e8ccd15b363f4c15d"
+                "reference": "07acdab640536cb90d4e8d6488c6e0ac354f84c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ec-europa/toolkit/zipball/aca2f5f3c6dd3ab2a1a26a8e8ccd15b363f4c15d",
-                "reference": "aca2f5f3c6dd3ab2a1a26a8e8ccd15b363f4c15d",
+                "url": "https://api.github.com/repos/ec-europa/toolkit/zipball/07acdab640536cb90d4e8d6488c6e0ac354f84c3",
+                "reference": "07acdab640536cb90d4e8d6488c6e0ac354f84c3",
                 "shasum": ""
             },
             "require": {
                 "cweagans/composer-patches": "^1.4",
-                "drupal/drupal-extension": "^3.4 || ^4.0",
                 "drush/drush": "^9.7.1 || ^10.0.0",
                 "ec-europa/qa-automation": "^4.0.0",
+                "ext-json": "*",
                 "guzzlehttp/guzzle": "^6.3",
                 "openeuropa/task-runner": "^1.0.0-beta6",
                 "php": "^7.1"
@@ -8015,7 +8015,7 @@
             ],
             "description": "Toolkit packaged for Drupal 8.",
             "homepage": "https://github.com/ec-europa/toolkit",
-            "time": "2020-02-28T15:05:10+00:00"
+            "time": "2020-08-27T08:12:51+00:00"
         },
         {
             "name": "fabpot/goutte",
