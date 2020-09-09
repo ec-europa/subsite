@@ -27,8 +27,6 @@ toolkit:
       - { task: "copy", from: "lib/profiles", to: "dist/${drupal.root}/profiles/custom" }
     dev:
       commands:
-      - { task: "run", command: "toolkit:build-dev" }
-      - { task: "run", command: "toolkit:install-clean" }
       - { task: "run", command: "drupal:setup-test" }
 
 commands:
