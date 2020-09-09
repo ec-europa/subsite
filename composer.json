@@ -1,12 +1,12 @@
 {
     "name": "ec-europa/subsite",
-    "description": "Project template for NextEuropa Subsites on ssk 4.x",
+    "description": "Drupal 8 template for websites hosted in DIGIT.",
     "type": "project",
     "license": "EUPL-1.2",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.3",
         "composer/installers": "^1.5",
         "cweagans/composer-patches": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.5",
@@ -55,11 +55,20 @@
             "web/modules/contrib/{$name}": [
                 "type:drupal-module"
             ],
+            "web/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
             "web/profiles/contrib/{$name}": [
                 "type:drupal-profile"
             ],
+            "web/profiles/custom/{$name}": [
+                "type:drupal-custom-profile"
+            ],
             "web/themes/contrib/{$name}": [
                 "type:drupal-theme"
+            ],
+            "web/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
             ]
         }
     },

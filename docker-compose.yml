@@ -1,12 +1,11 @@
 version: '2'
 services:
   web:
-    image: fpfis/httpd-php-dev:7.3
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
     working_dir: ${PWD}
     ports:
       - 8080:8080
     volumes:
-      #- .:/var/www/html # Non Mac users.
       # - nfsmount:/var/www/html # Mac Users with the nfsmount volume.
       - ${PWD}:${PWD}
     environment:
@@ -32,7 +31,7 @@ services:
 
   # Spawn a Selenium server which also includes a VNC server on localhost:5900 (the password is "secret")
   selenium:
-    image: selenium/standalone-chrome-debug:3.11
+    image: selenium/standalone-chrome:3.14
     environment:
       - DISPLAY=:99
       - SE_OPTS=-debug

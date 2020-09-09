@@ -17,4 +17,5 @@
 /runner.yml
 /docker-compose.*.yml
 *.sql
+*.gz
 .gitignore
