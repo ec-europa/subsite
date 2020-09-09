@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
+    image: registry.fpfis.eu/fpfis/httpd-php:7.3-dev
     working_dir: ${PWD}
     ports:
       - 8080:8080
