@@ -1,5 +1,5 @@
 {
-    "name": "ec-europa/subsite",
+    "name": "digit/subsite",
     "description": "Drupal 8 template for websites hosted in DIGIT.",
     "type": "project",
     "license": "EUPL-1.2",
@@ -24,6 +24,9 @@
         "drupal/core-dev": "^8.7"
     },
     "scripts": {
+        "post-root-package-install": [
+            "Subsite\\composer\\SetupWizard::setup"
+        ],
         "post-install-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
         ]
@@ -71,6 +74,11 @@
                 "type:drupal-custom-theme"
             ]
         }
+    },
+    "autoload": {
+        "classmap": [
+            "scripts/composer/SetupWizard.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
