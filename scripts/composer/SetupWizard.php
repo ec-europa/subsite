@@ -53,9 +53,7 @@ class SetupWizard {
 
     foreach ($questions as $param => $question) {
       $params[$param] = $event->getIO()->ask('<info>' . $question . '</info> [<comment>' . $params[$param] . '</comment>]? ', $params[$param]);
-      if ($params[$param] != 'project_vendor') {
-        exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/%{$param}/{$params[$param]}/g' {} +");
-      }
+      exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/%{$param}/{$params[$param]}/g' {} +");
     }
 
     return TRUE;
