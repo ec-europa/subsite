@@ -1,6 +1,6 @@
 {
-    "name": "digit/subsite",
-    "description": "Drupal 8 template for websites hosted in DIGIT.",
+    "name": "%project_namespace",
+    "description": "%project_description",
     "type": "project",
     "license": "EUPL-1.2",
     "minimum-stability": "dev",

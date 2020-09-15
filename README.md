@@ -1,10 +1,11 @@
 # NextEuropa
+
 <img align="left" width="50%" src="https://ec.europa.eu/info/sites/info/themes/europa/images/svg/logo/logo--en.svg" />
 
 <p>The Next EUROPA IT Platform is the technical side of the digital
 transformation programme at the Commission. This composer project
 contains the subsite template that are used to build the projects. It
-# Drupal 8 template for websites hosted in DIGIT
+# Drupal 8 - %project_namespace
 
 <img align="right" width="50%" src="https://ec.europa.eu/info/sites/info/themes/europa/images/svg/logo/logo--en.svg" />
 
