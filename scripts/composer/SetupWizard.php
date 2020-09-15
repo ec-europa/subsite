@@ -6,7 +6,6 @@ namespace Subsite\composer;
 
 use Composer\Json\JsonFile;
 use Composer\Script\Event;
-// use Symfony\Component\Yaml\Yaml;
 
 /**
  * Setup wizard to handle user input during initial composer installation.
@@ -42,9 +41,9 @@ class SetupWizard {
       'standard',
       'openeuropa',
       ];
-      // $optionLabel = $options[arg returned];
 
     $params['project_profile'] = $event->getIO()->select('<info>Select the installation profile?</info> [<comment>' . $params['project_profile'] . '</comment>]? ', $options, $params['project_profile']);
+    exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/%project_profile/{$options[$params["project_profile"]]}/g' {} +");
 
     $questions = [
       'project_id' => 'What is the Project Id (machine readable)?',
@@ -53,31 +52,11 @@ class SetupWizard {
       ];
 
     foreach ($questions as $param => $question) {
-      $params[$param] = $event->getIO()->ask('<info>' . $question . '</info> [<comment>' . $params[$param] . '</comment>]? ', $params[$param]);    
+      $params[$param] = $event->getIO()->ask('<info>' . $question . '</info> [<comment>' . $params[$param] . '</comment>]? ', $params[$param]);
+      if ($params[$param] != 'project_vendor') {
+        exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/%{$param}/{$params[$param]}/g' {} +");
+      }
     }
-
-    $params['project_namespace'] = $params['project_vendor'] . '/' . $params['project_id'];
-    
-    
-    exec("find ./ -type f -not -path \"scripts\" -exec sed -i 's/re/{$params["project_id"]}/g' {} +");
-    // exec("find ./ -type f -exec sed -i 's/%project_profile/{$options[$params["project_profile"]]}/g' {} +");
-    
-
-    // // Update runner.yml.dist.
-    // $runnerYmldist = Yaml::parse(file_get_contents(dirname(__DIR__, 2) . '/runner.yml.dist'));
-    // $runnerYmldist['toolkit']['project_id'] = $params['project_id'];
-    
-    
-    // $runnerYmldist['drupal']['site']['profile'] = $options[$params['project_profile']];
-    // $updateRunnerYmldist = Yaml::dump($runnerYmldist, 5);
-    // file_put_contents(dirname(__DIR__, 2) .'/runner.yml.dist', $updateRunnerYmldist);
-
-    // // Update composer.json.
-    // $composer_json = new JsonFile($composer_filename);
-    // $config = $composer_json->read();
-    // $config['name'] = $params['project_namespace'];
-    // $config['description'] = $params['project_description'];
-    // $composer_json->write($config);
 
     return TRUE;
   }

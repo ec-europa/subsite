@@ -1,5 +1,5 @@
 {
-    "name": "%project_namespace",
+    "name": "%project_vendor/%project_id",
     "description": "%project_description",
     "type": "project",
     "license": "EUPL-1.2",
