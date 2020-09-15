@@ -37,23 +37,22 @@ class SetupWizard {
     $params['project_vendor'] = 'digit';
     $params['project_description'] = 'Drupal 8 template for websites hosted in DIGIT.';
 
-    $params['project_profile'] = $event->getIO()->select(
-      '<info>Select the installation profile?</info> [<comment>' . $params['project_profile'] . '</comment>]? ',
-      ['minimal', 'standard', 'openeuropa'],
-      $params['project_profile'],
-    );
-    $params['project_id'] = $event->getIO()->ask('<info>What is the Project Id (machine readable)?</info> [<comment>' . $params['project_id'] . '</comment>]? ', $params['project_id']);
-    $params['project_vendor'] = $event->getIO()->ask('<info>What vendor will be used?</info> [<comment>' . $params['project_vendor'] . '</comment>]? ', $params['project_vendor']);
-    $params['project_description'] = $event->getIO()->ask('<info>Provide a description</info> [<comment>' . $params['project_description'] . '</comment>]? ', $params['project_description']);
+    $options = [
+      'minimal',
+      'standard',
+      'openeuropa',
+      ];
 
-    if ($params['project_profile'] == '0') {
-      $params['project_profile'] = "minimal";
-    }
-    elseif ($params['project_profile'] == '1') {
-      $params['project_profile'] = "standard";
-    }
-    elseif ($params['project_profile'] == '2') {
-      $params['project_profile'] = "oe_profile";
+    $params['project_profile'] = $event->getIO()->select('<info>Select the installation profile?</info> [<comment>' . $params['project_profile'] . '</comment>]? ', $options, $params['project_profile']);
+
+    $questions = [
+      'project_id' => 'What is the Project Id (machine readable)?',
+      'project_vendor' => 'What vendor will be used?',
+      'project_description' => 'Provide a description.',
+      ];
+
+    foreach ($questions as $param => $question) {
+      $params[$param] = $event->getIO()->ask('<info>' . $question . '</info> [<comment>' . $params[$param] . '</comment>]? ', $params[$param]);    
     }
 
     $params['project_namespace'] = $params['project_vendor'] . '/' . $params['project_id'];
