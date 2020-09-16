@@ -43,7 +43,7 @@ class SetupWizard {
       ];
 
     $questions = [
-      'project_id' => 'What is the Project Id (machine readable)?',
+      'project_id' => 'What is the project id?',
       'project_vendor' => 'What vendor will be used?',
       'project_description' => 'Provide a description.',
       'project_name' => 'What is the Website name?',
