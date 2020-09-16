@@ -29,6 +29,13 @@ project you can execute the following command:
 
 ```bash
 composer create-project ec-europa/subsite project-folder-name dev-release/4.x
+
+# or in docker way
+
+git clone git@github.com:ec-europa/subsite.git --branch=release/4.x project-folder-name
+cd project-folder-name
+docker-compose up -d
+docker-compose exec web composer create-project
 ```
 
 This will clone the current repository and install the toolkit. After this is done
