@@ -39,7 +39,7 @@ class SetupWizard {
     $options = [
       'minimal',
       'standard',
-      'openeuropa',
+      'oe_profile',
       ];
 
     $questions = [
