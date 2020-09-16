@@ -2,7 +2,7 @@ drupal:
     root: web
     base_url: '${env.DRUPAL_BASE_URL}'
     site:
-        profile: %project_profile
+        profile: token_project_profile
         name: token_project_name
         generate_db_url: false
         default_theme: subsite
