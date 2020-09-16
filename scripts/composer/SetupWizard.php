@@ -27,8 +27,6 @@ class SetupWizard {
    *   Thrown when an error occurs during the setup.
    */
   public static function setup(Event $event): bool {
-    $composer_filename = $event->getComposer()->getConfig()->getConfigSource()->getName();
-
     // Ask for the project name, and suggest the various machine names.
     $params = [
       'project_profile' => 'openeuropa',
@@ -51,9 +49,13 @@ class SetupWizard {
       'project_name' => 'What is the Website name?',
       ];
 
-    foreach ($questions as $param => $question) {
-      $params[$param] = $event->getIO()->ask('<info>' . $question . '</info> [<comment>' . $params[$param] . '</comment>]? ', $params[$param]);
-      exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_{$param}/{$params[$param]}/g' {} +");
+    // We are providing multiple options for profile.
+    $params['project_profile'] = $event->getIO()->select('<info>Select the installation profile?</info> [<comment>' . $params['project_profile'] . '</comment>]? ', $options, $params['project_profile']);
+    exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_profile/{$options[$params["project_profile"]]}/g' {} +");
+
+    foreach ($questions as $key => $question) {
+      $params[$param] = $event->getIO()->ask('<info>' . $question . '</info> [<comment>' . $params[$key] . '</comment>]? ', $params[$key]);
+      exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_{$key}/{$params[$key]}/g' {} +");
     }
 
     return TRUE;
