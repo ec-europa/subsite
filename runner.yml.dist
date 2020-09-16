@@ -3,7 +3,7 @@ drupal:
     base_url: '${env.DRUPAL_BASE_URL}'
     site:
         profile: %project_profile
-        name: Subsite
+        name: token_project_name
         generate_db_url: false
         default_theme: subsite
     account:
@@ -16,7 +16,7 @@ selenium:
     port: '4444'
     browser: chrome
 toolkit:
-    project_id: %project_id
+    project_id: token_project_id
     build:
         dist:
             commands:
@@ -27,8 +27,5 @@ toolkit:
             commands:
                 - { task: run, command: 'drupal:setup-test' }
 commands:
-    'drupal:setup-test':
-        -
-            task: process
-            source: behat.yml.dist
-            destination: behat.yml
+  drupal:setup-test:
+  - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }

@@ -1,15 +1,8 @@
-# NextEuropa
+# token_project_name
 
-<img align="left" width="50%" src="https://ec.europa.eu/info/sites/info/themes/europa/images/svg/logo/logo--en.svg" />
+[![Build Status](https://drone.fpfis.eu/api/badges/token_vendor/token_project_id-reference/status.svg)](https://drone.fpfis.eu/token_vendor/token_project_id-reference)
 
-<p>The Next EUROPA IT Platform is the technical side of the digital
-transformation programme at the Commission. This composer project
-contains the subsite template that are used to build the projects. It
-# Drupal 8 - %project_vendor/%project_id
-
-<img align="right" width="50%" src="https://ec.europa.eu/info/sites/info/themes/europa/images/svg/logo/logo--en.svg" />
-
-<p>This project is a Drupal 8 template for websites hosted in DIGIT.</p>
+<p>token_project_description</p>
 
 - [Subsite](#subsite)
   * [1. Development](#1-development)

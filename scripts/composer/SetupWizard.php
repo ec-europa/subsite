@@ -49,11 +49,12 @@ class SetupWizard {
       'project_id' => 'What is the Project Id (machine readable)?',
       'project_vendor' => 'What vendor will be used?',
       'project_description' => 'Provide a description.',
+      'project_name' => 'What is the Website name?',
       ];
 
     foreach ($questions as $param => $question) {
       $params[$param] = $event->getIO()->ask('<info>' . $question . '</info> [<comment>' . $params[$param] . '</comment>]? ', $params[$param]);
-      exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/%{$param}/{$params[$param]}/g' {} +");
+      exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_{$param}/{$params[$param]}/g' {} +");
     }
 
     return TRUE;
