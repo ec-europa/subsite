@@ -39,7 +39,7 @@ class SetupWizard {
     $options = [
       'minimal',
       'standard',
-      'openeuropa',
+      'oe_profile',
       ];
 
     $questions = [
@@ -57,6 +57,11 @@ class SetupWizard {
       $params[$key] = $event->getIO()->ask('<info>' . $question . '</info> [<comment>' . $params[$key] . '</comment>]? ', $params[$key]);
       exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_{$key}/{$params[$key]}/g' {} +");
     }
+
+    // Clean up setup wizard files.
+    unlink('scripts/composer/SetupWizard.php');
+    rmdir('scripts/composer');
+    rmdir('scripts');
 
     return TRUE;
   }
