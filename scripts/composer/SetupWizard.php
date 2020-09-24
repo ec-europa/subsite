@@ -58,11 +58,6 @@ class SetupWizard {
       exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_{$key}/{$params[$key]}/g' {} +");
     }
 
-    // Clean up setup wizard files.
-    unlink('scripts/composer/SetupWizard.php');
-    rmdir('scripts/composer');
-    rmdir('scripts');
-
     return TRUE;
   }
 
