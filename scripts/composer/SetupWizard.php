@@ -58,6 +58,10 @@ class SetupWizard {
       exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_{$key}/{$params[$key]}/g' {} +");
     }
 
+    // Provide name for database.
+    $project_database = str_replace('-', '_', $params['project_id']);
+    exec("find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_database/{$project_database}/g' {} +");
+
     return TRUE;
   }
 
