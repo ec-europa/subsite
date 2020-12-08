@@ -23,17 +23,16 @@ services:
     env_file:
       - .env
   mysql:
-    image: percona/percona-server:5.7
+    image: registry.fpfis.eu/fpfis/sql:percona-5.7
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - mysql:/var/lib/mysql
 #    ports:
 #      - 3306:3306
-
   # Spawn a Selenium server which also includes a VNC server on localhost:5900 (the password is "secret")
   selenium:
-    image: selenium/standalone-chrome:3.14
+    image: registry.fpfis.eu/fpfis/selenium:standalone-chrome-3.141.59
     environment:
       - DISPLAY=:99
       - SE_OPTS=-debug
@@ -41,9 +40,7 @@ services:
       - 5900:5900
     expose:
       - 4444
-
 #### Mac users: uncomment the "volumes" key to enable the NFS file sharing. You can find more information about Docker for Mac here: https://github.com/openeuropa/openeuropa/blob/master/docs/starting/tooling.md#using-docker-on-macos
-
 #volumes:
 #  nfsmount:
 #    driver: local
@@ -51,8 +48,6 @@ services:
 #      type: nfs
 #      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
 #      device: ":${PWD}/"
-
 #### End Mac users.
-
 volumes:
   mysql:
