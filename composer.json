@@ -47,6 +47,14 @@
                 }
             }
         },
+        "drupal-scaffold": {
+            "allowed-packages": [
+                "drupal/core"
+            ],
+            "locations": {
+              "web-root": "./web"
+            }
+        },
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
         "installer-paths": {
