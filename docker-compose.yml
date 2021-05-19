@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    image: registry.fpfis.eu/fpfis/httpd-php:7.3-dev
+    image: fpfis/httpd-php:7.3-dev
     working_dir: ${PWD}
     ports:
       - 8080:8080
@@ -34,7 +34,7 @@ services:
 
   # Spawn a Selenium server which also includes a VNC server on localhost:5900 (the password is "secret")
   selenium:
-    image: selenium/standalone-chrome:3.14
+    image: selenium/standalone-chrome:3.141.59
     environment:
       - DISPLAY=:99
       - SE_OPTS=-debug
