@@ -13,6 +13,7 @@ services:
       # By leaving these variables empty Docker Compose will set them to their host values.
       ASDA_USER:
       ASDA_PASSWORD:
+      GITHUB_API_TOKEN:
       DOCUMENT_ROOT: ${PWD}
       # XDEBUG CONFIGURATION
       XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254 remote_port=9000 idekey=PHPSTORM remote_autostart=1"
