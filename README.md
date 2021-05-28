@@ -4,18 +4,7 @@
 
 <p>token_project_description</p>
 
-- [Subsite](#subsite)
-  * [1. Development](#1-development)
-    + [1.1 Prerequisites](#11-prerequisites)
-    + [1.2 Configuring the project](#12-configuring-the-project)
-    + [1.3 Setting up the environment](#13-setting-up-the-environment)
-      - [1.3.1 Make your life easier with aliases](#131-make-your-life-easier-with-aliases)
-    + [1.4 Installing the project](#14-installing-the-project)
-    + [1.5 Testing the project](#15-testing-the-project)
-    + [1.6 Updating composer.lock](#110-updating-composerlock)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
+This is an example, feel free to drop it and customize as you need.
 
 ## 1. Development
 

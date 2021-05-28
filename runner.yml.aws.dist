@@ -10,7 +10,7 @@ drupal:
     account:
         name: '${env.DRUPAL_ACCOUNT_USERNAME}'
         password: '${env.DRUPAL_ACCOUNT_PASSWORD}'
-        mail: '${env.DRUPAL_ACCOUNT_EMAIL}'
+        mail: '${env.DRUPAL_ACCOUNT_EMAIL}'        
 behat:
     tags: ~@wip
 selenium:
@@ -19,6 +19,8 @@ selenium:
     browser: chrome
 toolkit:
     project_id: token_project_id
+    clone:
+        asda_url: 'https://asda.fpfis.tech.ec.europa.eu/ec-europa/token_project_id-reference/dumps/'
     build:
         dist:
             commands:
