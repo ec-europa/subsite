@@ -6,11 +6,11 @@ drupal:
         name: token_project_name
         generate_db_url: false
         default_theme: subsite
-        mail: '${env.DRUPAL_ACCOUNT_EMAIL}'
+        mail: token_project_email
     account:
         name: '${env.DRUPAL_ACCOUNT_USERNAME}'
         password: '${env.DRUPAL_ACCOUNT_PASSWORD}'
-        mail: '${env.DRUPAL_ACCOUNT_EMAIL}'
+        mail: token_project_email
 behat:
     tags: ~@wip
 selenium:
