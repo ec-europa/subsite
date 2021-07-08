@@ -33,7 +33,8 @@ class SetupWizard {
       'project_id' => 'subsite',
       'project_name' => 'My Website',
       'project_vendor' => 'digit',
-      'project_description' => 'Drupal 8 template for websites hosted in DIGIT.'
+      'project_description' => 'Drupal 8 template for websites hosted in DIGIT.',
+      'project_email' => 'DEVSECOPS Mailbox'
     ];
 
     $options = [
@@ -47,6 +48,7 @@ class SetupWizard {
       'project_vendor' => 'What vendor will be used?',
       'project_description' => 'Provide a description.',
       'project_name' => 'What is the Website name?',
+      'project_email' => 'Default website mailbox.'
       ];
 
     // We are providing multiple options for profile.
