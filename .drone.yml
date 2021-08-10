@@ -1,0 +1,87 @@
+# ==============================================================================
+# Pull request clone ===========================================================
+# ==============================================================================
+# Use plugin to checkout pull requests for caching issue:
+# https://github.com/drone/drone/issues/2390
+# ==============================================================================
+clone:
+  git:
+    image: plugins/git:next
+
+# ==============================================================================
+# Workspace location.
+# ==============================================================================
+workspace:
+  base: /test
+  path: toolkit
+
+# ==============================================================================
+# Matrix section
+# ==============================================================================
+matrix:
+  include:
+    - BRANCH: release/3.x
+      ID: tk3
+    - BRANCH: release/4.x
+      ID: tk4
+    - BRANCH: release/8.x
+      ID: tk8
+
+# ==============================================================================
+# Main services
+# ==============================================================================
+services:
+  mysql:
+    image: percona/percona-server:5.7
+    command: --innodb-log-file_size=128M --max-allowed-packet=1G --innodb-buffer-pool-size=512M
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+# ==============================================================================
+# Pipelines
+# ==============================================================================
+pipeline:
+
+  # ============================================================================
+  # Prepare section:
+  # ============================================================================
+  grab-site:
+    image: fpfis/httpd-php:{PHP_VERSION=7.3}-dev
+    group: prepare
+    commands:
+      - echo PROJECT=$(pwd)
+      - rm -rf /test/toolkit/*
+      - rm -rf .drone.yml
+      - rm -rf .gitignore
+      - rm -rf .git
+      - git init
+      - git remote add ${ID} https://github.com/ec-europa/subsite
+      - git fetch ${ID}
+      - git checkout -b ${BRANCH} --track ${ID}/${BRANCH} # origin/master is clone's default
+    volumes:
+      - /cache/${DRONE_REPO_NAME}:/cache
+
+  # ============================================================================
+  # Setup section:
+  # ============================================================================
+  toolkit:
+    image: fpfis/httpd-php:{PHP_VERSION=7.3}-dev
+    group: setup
+    secrets: [ github_api_token ]
+    commands:
+      - composer install
+    volumes:
+      - /cache:/cache
+
+  # ============================================================================
+  # Build section:
+  # ============================================================================
+  install:
+    image: fpfis/httpd-php:{PHP_VERSION=7.3}-dev
+    group: build
+    secrets: [ github_api_token ]
+    commands:
+      - vendor/bin/run
+    volumes:
+      - /cache/${DRONE_REPO_NAME}:/cache
+
