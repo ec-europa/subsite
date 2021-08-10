@@ -65,7 +65,7 @@ pipeline:
     group: setup
     secrets: [ github_api_token ]
     commands:
-      - composer create-project drupal-composer/drupal-project:${DRUPAL} drupal --no-interaction
+      - composer create-project drupal-composer/drupal-project:${DRUPAL} drupal-composer-build --stability dev --no-interaction
 
   # ============================================================================
   # Build section:
