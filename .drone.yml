@@ -76,6 +76,16 @@ pipeline:
   # ============================================================================
   # Setup section:
   # ============================================================================
+  list-files:
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
+    group: setup
+    secrets: [ github_api_token ]
+    commands:
+      - ls -lah
+
+  # ============================================================================
+  # Setup section:
+  # ============================================================================
   install-drupal:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
     group: setup
