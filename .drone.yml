@@ -22,10 +22,13 @@ matrix:
   include:
     - BRANCH: release/3.x
       ID: tk3
+      COMMAND: toolkit/phing
     - BRANCH: release/4.x
       ID: tk4
+      COMMAND: vendor/bin/run
     - BRANCH: release/8.x
       ID: tk8
+      COMMAND: vendor/bin/run
 
 # ==============================================================================
 # Main services
@@ -59,7 +62,7 @@ pipeline:
       - git fetch ${ID}
       - git checkout -b ${BRANCH} --track ${ID}/${BRANCH} # origin/master is clone's default
     volumes:
-      - /cache/${DRONE_REPO_NAME}:/cache
+      - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
   # ============================================================================
   # Setup section:
@@ -71,7 +74,7 @@ pipeline:
     commands:
       - composer install
     volumes:
-      - /cache:/cache
+      - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
   # ============================================================================
   # Build section:
@@ -81,7 +84,7 @@ pipeline:
     group: build
     secrets: [ github_api_token ]
     commands:
-      - vendor/bin/run
+      - ${COMMAND}
     volumes:
-      - /cache/${DRONE_REPO_NAME}:/cache
+      - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
