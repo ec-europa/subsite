@@ -56,8 +56,6 @@ pipeline:
     group: prepare
     commands:
       - composer self-update --${COMPOSER}
-    volumes:
-      - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
   # ============================================================================
   # Setup section:
@@ -68,8 +66,6 @@ pipeline:
     secrets: [ github_api_token ]
     commands:
       - composer create-project drupal-composer/drupal-project:${DRUPAL} ${ID} --no-interaction
-    volumes:
-      - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
   # ============================================================================
   # Build section:
@@ -80,6 +76,3 @@ pipeline:
     secrets: [ github_api_token ]
     commands:
       - composer require --dev ec-europa/toolkit:${TK} --working-dir=/test/toolkit/${ID}
-    volumes:
-      - /cache/${DRONE_REPO_NAME}/${ID}:/cache
-
