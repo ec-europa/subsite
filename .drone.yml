@@ -84,7 +84,7 @@ pipeline:
       - composer self-update --${COMPOSER}
       - composer create-project drupal-composer/drupal-project:${DRUPAL} ${ID} --no-interaction
       - ls -lah
-      - composer require -w --working-dir=$ID --dev ec-europa/toolkit:${TK}
+      - composer require -w --working-dir=/test/toolkit/$ID --dev ec-europa/toolkit:${TK}
     volumes:
       - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
