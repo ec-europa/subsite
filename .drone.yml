@@ -65,7 +65,7 @@ pipeline:
     group: setup
     secrets: [ github_api_token ]
     commands:
-      - composer create-project drupal-composer/drupal-project:${DRUPAL} ${ID} --no-interaction
+      - composer create-project drupal-composer/drupal-project:${DRUPAL} drupal --no-interaction
 
   # ============================================================================
   # Build section:
@@ -75,4 +75,4 @@ pipeline:
     group: build
     secrets: [ github_api_token ]
     commands:
-      - composer require --dev ec-europa/toolkit:${TK} --working-dir=/test/toolkit/${ID}
+      - composer require --dev ec-europa/toolkit:${TK} --working-dir=/test/toolkit/drupal
