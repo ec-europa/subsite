@@ -23,17 +23,14 @@ matrix:
     - DRUPAL: "7.x-dev"
       TK: "3.3.4"
       ID: "TK3D7"
-      COMMAND: "toolkit/phing"
       COMPOSER: "1"
     - DRUPAL: "8.x-dev"
       TK: "4.4.6"
       ID: "TK4D8"
-      COMMAND: "vendor/bin/run"
       COMPOSER: "2"
     - DRUPAL: "9.x-dev"
       TK: "8.2.2"
       ID: "TK8D9"
-      COMMAND: "vendor/bin/run"
       COMPOSER: "2"
 
 # ==============================================================================
@@ -54,50 +51,35 @@ pipeline:
   # ============================================================================
   # Prepare section:
   # ============================================================================
-  grab-site:
+  set-composer:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-ci
     group: prepare
     commands:
-      - git remote -v
-      - echo PROJECT=$(pwd)
-      - rm -rf /test/toolkit/*
-      - rm -rf .drone.yml
-      - rm -rf .gitignore
-      - rm -rf .git
-      - rm -rf .env
-      # - git init
-      # - git remote add ${ID} https://github.com/ec-europa/subsite
-      # - git fetch ${ID}
-      # - git checkout -b ${BRANCH} --track ${ID}/${BRANCH} # origin/master is clone's default
+      - composer self-update --${COMPOSER}
     volumes:
       - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
   # ============================================================================
   # Setup section:
   # ============================================================================
-  toolkit:
+  install-drupal:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-ci
     group: setup
     secrets: [ github_api_token ]
     commands:
-      - ls -lah
-      - composer self-update --${COMPOSER}
       - composer create-project drupal-composer/drupal-project:${DRUPAL} ${ID} --no-interaction
-      - ls -lah /test/toolkit/$ID
-      - ls -lah
-      # - composer require -w --working-dir=/test/toolkit/$ID --dev ec-europa/toolkit:${TK}
     volumes:
       - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
   # ============================================================================
   # Build section:
   # ============================================================================
-  install:
+  install-toolkit:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-ci
     group: build
     secrets: [ github_api_token ]
     commands:
-      - ${COMMAND}
+      - composer require --dev ec-europa/toolkit:${TK} --working-dir=/test/toolkit/${ID}
     volumes:
       - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
