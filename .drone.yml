@@ -20,15 +20,21 @@ workspace:
 # ==============================================================================
 matrix:
   include:
-    - BRANCH: release/3.x
-      ID: tk3
+    - DRUPAL: 7.82
+      TK: 3.3.4
+      ID: TK3D782
       COMMAND: toolkit/phing
-    - BRANCH: release/4.x
-      ID: tk4
+      COMPOSER: 1
+    - DRUPAL: 8.9.17
+      TK: 4.4.6
+      ID: TK4D8917
       COMMAND: vendor/bin/run
-    - BRANCH: release/8.x
-      ID: tk8
+      COMPOSER: 1
+    - DRUPAL: 9.2.0
+      TK: 8.2.2
+      ID: TK8D920
       COMMAND: vendor/bin/run
+      COMPOSER: 1
 
 # ==============================================================================
 # Main services
@@ -74,7 +80,9 @@ pipeline:
     group: setup
     secrets: [ github_api_token ]
     commands:
-      - composer install
+      - sudo composer self-update --${COMPOSER}
+      - composer create-project drupal-composer/drupal-project:${DRUPAL} ${ID} --stability dev --no-interaction
+      - composer require -w --working-dir=$ID --dev ec-europa/toolkit:${TK}
     volumes:
       - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 

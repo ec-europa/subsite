@@ -9,18 +9,17 @@
         "php": ">=7.3",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.6",
-        "drupal/core": "^8.9.17",
+        "drupal/core": "^8.9",
         "drupal/core-composer-scaffold": "^8.9.6",
         "drush/drush": "^10.0",
-        "openeuropa/composer-artifacts": "~0.1",
         "webflo/drupal-finder": "^1.0",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
-        "drupal/core-dev": "^8.9.17",
+        "drupal/core-dev": "^8.9",
         "drupal/drupal-driver": "2.1.1",
         "drupal/drupal-extension": "~4.0",
-        "ec-europa/toolkit": "^8.2"
+        "ec-europa/toolkit": "^8.2.2"
     },
     "scripts": {
         "post-root-package-install": [
