@@ -65,10 +65,10 @@ pipeline:
       - rm -rf .gitignore
       - rm -rf .git
       - rm -rf .env
-      - git init
-      - git remote add ${ID} https://github.com/ec-europa/subsite
-      - git fetch ${ID}
-      - git checkout -b ${BRANCH} --track ${ID}/${BRANCH} # origin/master is clone's default
+      # - git init
+      # - git remote add ${ID} https://github.com/ec-europa/subsite
+      # - git fetch ${ID}
+      # - git checkout -b ${BRANCH} --track ${ID}/${BRANCH} # origin/master is clone's default
     volumes:
       - /cache/${DRONE_REPO_NAME}/${ID}:/cache
 
