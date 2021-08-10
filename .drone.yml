@@ -82,6 +82,7 @@ pipeline:
     secrets: [ github_api_token ]
     commands:
       - ls -lah
+      - cat composer.json
 
   # ============================================================================
   # Setup section:
