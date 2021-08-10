@@ -80,8 +80,10 @@ pipeline:
     group: setup
     secrets: [ github_api_token ]
     commands:
+      - ls -lah
       - composer self-update --${COMPOSER}
-      - composer create-project drupal-composer/drupal-project:${DRUPAL} ${ID} --stability dev --no-interaction
+      - composer create-project drupal-composer/drupal-project:${DRUPAL} ${ID} --no-interaction
+      - ls -lah
       - composer require -w --working-dir=$ID --dev ec-europa/toolkit:${TK}
     volumes:
       - /cache/${DRONE_REPO_NAME}/${ID}:/cache
