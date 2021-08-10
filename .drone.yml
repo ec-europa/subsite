@@ -80,7 +80,7 @@ pipeline:
     group: setup
     secrets: [ github_api_token ]
     commands:
-      - sudo composer self-update --${COMPOSER}
+      - composer self-update --${COMPOSER}
       - composer create-project drupal-composer/drupal-project:${DRUPAL} ${ID} --stability dev --no-interaction
       - composer require -w --working-dir=$ID --dev ec-europa/toolkit:${TK}
     volumes:
