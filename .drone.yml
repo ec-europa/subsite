@@ -95,7 +95,7 @@ pipeline:
     group: setup
     secrets: [ github_api_token ]
     commands:
-      - composer install --no-interaction
+      - COMPOSER=/test/toolkit/composer.json composer install --no-interaction
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
@@ -107,6 +107,6 @@ pipeline:
     group: build
     secrets: [ github_api_token ]
     commands:
-      - composer require --dev ec-europa/toolkit:${TK} --no-interaction
+      - COMPOSER=/test/toolkit/composer.json composer require --dev ec-europa/toolkit:${TK} --no-interaction
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
