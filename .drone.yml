@@ -52,11 +52,13 @@ pipeline:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-ci
     group: prepare
     commands:
+      - git remote -v
       - echo PROJECT=$(pwd)
       - rm -rf /test/toolkit/*
       - rm -rf .drone.yml
       - rm -rf .gitignore
       - rm -rf .git
+      - rm -rf .env
       - git init
       - git remote add ${ID} https://github.com/ec-europa/subsite
       - git fetch ${ID}
