@@ -20,15 +20,15 @@ workspace:
 # ==============================================================================
 matrix:
   include:
-    - DRUPAL: "7.x-dev"
+    - DRUPAL: "7"
       TK: "3.3.4"
       ID: "TK3D7"
       COMPOSER: "1"
-    - DRUPAL: "8.x-dev"
+    - DRUPAL: "8"
       TK: "4.4.6"
       ID: "TK4D8"
       COMPOSER: "2"
-    - DRUPAL: "9.x-dev"
+    - DRUPAL: "9"
       TK: "8.2.2"
       ID: "TK8D9"
       COMPOSER: "2"
@@ -48,6 +48,22 @@ services:
 # ==============================================================================
 pipeline:
 
+  grab-site:
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
+    group: prepare
+    commands:
+      - echo PROJECT=$(pwd)
+      - rm -rf /test/toolkit/*
+      - rm -rf .drone.yml
+      - rm -rf .gitignore
+      - rm -rf .git
+      - git init
+      - git remote add ${ID} https://github.com/drupal-composer/drupal-project.git
+      - git fetch ${ID}
+      - git checkout -b ${DRUPAL}.x --track ${ID}/${DRUPAL}.x # origin/master is clone's default
+    volumes:
+      - /cache/${DRONE_REPO_NAME}:/cache
+
   # ============================================================================
   # Prepare section:
   # ============================================================================
@@ -65,7 +81,7 @@ pipeline:
     group: setup
     secrets: [ github_api_token ]
     commands:
-      - composer create-project drupal-composer/drupal-project:${DRUPAL} drupal-composer-build --stability dev --no-interaction
+      - composer install
 
   # ============================================================================
   # Build section:
@@ -75,4 +91,4 @@ pipeline:
     group: build
     secrets: [ github_api_token ]
     commands:
-      - composer require --dev ec-europa/toolkit:${TK} --working-dir=/test/toolkit/drupal
+      - composer require --dev ec-europa/toolkit:${TK}
