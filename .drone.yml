@@ -20,21 +20,21 @@ workspace:
 # ==============================================================================
 matrix:
   include:
-    - DRUPAL: 7.82
+    - DRUPAL: 7.x-dev
       TK: 3.3.4
-      ID: TK3D782
+      ID: TK3D7
       COMMAND: toolkit/phing
       COMPOSER: 1
-    - DRUPAL: 8.9.17
+    - DRUPAL: 8.x-dev
       TK: 4.4.6
-      ID: TK4D8917
+      ID: TK4D8
       COMMAND: vendor/bin/run
       COMPOSER: 1
-    - DRUPAL: 9.2.0
+    - DRUPAL: 9.x-dev
       TK: 8.2.2
-      ID: TK8D920
+      ID: TK8D9
       COMMAND: vendor/bin/run
-      COMPOSER: 1
+      COMPOSER: 2
 
 # ==============================================================================
 # Main services
