@@ -28,6 +28,10 @@ matrix:
       TK: "4.4.6"
       ID: "TK4D8"
       COMPOSER: "2"
+    - DRUPAL: "8"
+      TK: "8.2.1"
+      ID: "TK8D8"
+      COMPOSER: "2"
     - DRUPAL: "9"
       TK: "8.2.1"
       ID: "TK8D9"
@@ -107,6 +111,6 @@ pipeline:
     group: build
     secrets: [ github_api_token ]
     commands:
-      - COMPOSER=/test/toolkit/composer.json composer require --dev ec-europa/toolkit:${TK} --no-interaction
+      - COMPOSER=/test/toolkit/composer.json composer require -w --dev ec-europa/toolkit:${TK} --no-interaction
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
