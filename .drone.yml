@@ -74,10 +74,10 @@ pipeline:
       - rm -rf .gitignore
       - rm -rf .git
       - git init
-      #- git remote add ${ID} https://github.com/drupal-composer/drupal-project.git
-      - git remote add ${ID} git@github.com:ec-europa/${SITE}.git
+      - git remote add ${ID} https://github.com/jonhy81/drupal-project.git
+      # - git remote add ${ID} git@github.com:ec-europa/${SITE}.git
       - git fetch ${ID}
-      - git checkout -b master --track ${ID}/master # origin/master is clone's default
+      - git checkout -b ${DRUPAL} --track ${ID}/${DRUPAL}.x # origin/master is clone's default
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
