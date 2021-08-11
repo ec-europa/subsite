@@ -127,9 +127,6 @@ pipeline:
       - COMPOSER=/test/toolkit/composer.json composer require --dev ec-europa/toolkit:${TK} --no-interaction
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
-    when:
-      matrix:
-        UPDATE: 'yes'
 
   # ============================================================================
   # Build section:
