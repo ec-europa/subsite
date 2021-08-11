@@ -29,7 +29,7 @@ matrix:
       ID: "TK4D8"
       COMPOSER: "2"
     - DRUPAL: "9"
-      TK: "8.2.2"
+      TK: "8.2.1"
       ID: "TK8D9"
       COMPOSER: "2"
 
