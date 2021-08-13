@@ -26,7 +26,7 @@ matrix:
       COMPOSER: "1"
       SITE: "reps-spain-reference"
       UPDATE: "no"
-      COMMAND: "./toolkit/phing"
+      COMMAND: "./vendor/ec-europa/toolkit/bin/phing"
     - DRUPAL: "8"
       TK: "4.4.6"
       ID: "TK4D8"
@@ -96,7 +96,7 @@ pipeline:
   # ============================================================================
   list-files:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    group: setup
+    group: pre-setup
     secrets: [ github_api_token ]
     commands:
       - ls -lah
@@ -121,7 +121,7 @@ pipeline:
   # ============================================================================
   update-toolkit:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    group: build
+    group: update
     secrets: [ github_api_token ]
     commands:
       - COMPOSER=/test/toolkit/composer.json composer require --dev ec-europa/toolkit:${TK} --no-interaction
@@ -133,7 +133,7 @@ pipeline:
   # ============================================================================
   test-toolkit:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    group: build
+    group: test
     secrets: [ github_api_token ]
     commands:
       - pwd
