@@ -26,28 +26,28 @@ matrix:
       COMPOSER: "1"
       SITE: "reps-spain-reference"
       UPDATE: "no"
-      COMMAND: "toolkit/phing"
+      COMMAND: "./toolkit/phing"
     - DRUPAL: "8"
       TK: "4.4.6"
       ID: "TK4D8"
       COMPOSER: "2"
       SITE: "cnect-futurium-reference"
       UPDATE: "no"
-      COMMAND: "vendor/bin/run"
+      COMMAND: "./vendor/bin/run"
     - DRUPAL: "8"
       TK: "8.2.1"
       ID: "TK8D8"
       COMPOSER: "2"
       SITE: "cnect-futurium-reference"
       UPDATE: "yes"
-      COMMAND: "vendor/bin/run"
+      COMMAND: "./vendor/bin/run"
     - DRUPAL: "9"
       TK: "8.2.1"
       ID: "TK8D9"
       COMPOSER: "2"
       SITE: "digit-qa-reference"
       UPDATE: "no"
-      COMMAND: "vendor/bin/run"
+      COMMAND: "./vendor/bin/run"
 
 # ==============================================================================
 # Main services
@@ -136,6 +136,8 @@ pipeline:
     group: build
     secrets: [ github_api_token ]
     commands:
+      - pwd
+      - ls -lah
       - ${COMMAND}
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
