@@ -26,7 +26,7 @@ matrix:
       COMPOSER: "1"
       SITE: "reps-spain-reference"
       UPDATE: "no"
-      COMMAND: "./vendor/ec-europa/toolkit/bin/phing"
+      COMMAND: "./vendor/bin/phing"
     - DRUPAL: "8"
       TK: "4.4.6"
       ID: "TK4D8"
@@ -138,6 +138,7 @@ pipeline:
     commands:
       - pwd
       - ls -lah
+      - ls -lah ./vendor/bin
       - ${COMMAND}
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
