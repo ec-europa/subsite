@@ -26,7 +26,7 @@ matrix:
       COMPOSER: "1"
       SITE: "reps-spain-reference"
       UPDATE: "no"
-      COMMAND: "ls -lah ./vendor/ec-europa/toolkit/vendor"
+      COMMAND: "ls -lah ./vendor/ec-europa/toolkit"
     - DRUPAL: "8"
       TK: "4.4.8"
       ID: "TK4D8"
