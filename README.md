@@ -1,8 +1,8 @@
-# Open Social
+# token_project_name
 
-[![Build Status](https://drone.fpfis.eu/api/badges/token_vendor/digit-opensocial-pilot-reference/status.svg)](https://drone.fpfis.eu/token_vendor/digit-opensocial-pilot-reference)
+[![Build Status](https://drone.fpfis.eu/api/badges/token_vendor/token_project_id-reference/status.svg)](https://drone.fpfis.eu/token_vendor/token_project_id-reference)
 
-<p>Open Social tailored for the European Commission</p>
+<p>token_project_description</p>
 
 This is an example, feel free to drop it and customize as you need.
 

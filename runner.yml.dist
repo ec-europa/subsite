@@ -3,14 +3,14 @@ drupal:
     base_url: '${env.DRUPAL_BASE_URL}'
     site:
         profile: social
-        name: Open Social
+        name: token_project_name
         generate_db_url: false
         default_theme: socialblue
-        mail: DIGIT-DRUPAL-DEVSECOPS@ec.europa.eu
+        mail: token_project_email
     account:
         name: '${env.DRUPAL_ACCOUNT_USERNAME}'
         password: '${env.DRUPAL_ACCOUNT_PASSWORD}'
-        mail: DIGIT-DRUPAL-DEVSECOPS@ec.europa.eu
+        mail: token_project_email
 behat:
     tags: ~@wip
 selenium:
@@ -18,9 +18,9 @@ selenium:
     port: '4444'
     browser: chrome
 toolkit:
-    project_id: digit-opensocial-pilot
+    project_id: token_project_id
     clone:
-        asda_url: 'https://asda.fpfis.tech.ec.europa.eu/ec-europa/digit-opensocial-pilot-reference/dumps/'
+        asda_url: 'https://asda.fpfis.tech.ec.europa.eu/ec-europa/token_project_id-reference/dumps/'
     build:
         dist:
             commands:

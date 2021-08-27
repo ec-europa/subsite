@@ -1,6 +1,6 @@
 {
-    "name": "digit/opensocial",
-    "description": "Open Social tailored for the European Commission",
+    "name": "token_project_vendor/token_project_id",
+    "description": "token_project_description",
     "type": "project",
     "license": "EUPL-1.2",
     "minimum-stability": "dev",
