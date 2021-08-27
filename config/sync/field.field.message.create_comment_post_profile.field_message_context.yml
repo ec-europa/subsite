@@ -1,0 +1,23 @@
+uuid: 917e1f55-314a-4484-a463-dbeadfdf1c19
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_message_context
+    - message.template.create_comment_post_profile
+  module:
+    - options
+_core:
+  default_config_hash: bEvRUpPuFmzbd9yKrt5d3jh0RP_4imczbg_hmgUKc4Y
+id: message.create_comment_post_profile.field_message_context
+field_name: field_message_context
+entity_type: message
+bundle: create_comment_post_profile
+label: Context
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

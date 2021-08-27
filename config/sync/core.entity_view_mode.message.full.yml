@@ -1,0 +1,12 @@
+uuid: 47ca8728-ba26-44db-bb77-eb5f249ea30d
+langcode: en
+status: false
+dependencies:
+  module:
+    - message
+_core:
+  default_config_hash: Pl6xok1fBCKaPlLC4iDJVaucp2W72csXt7M3Jwa95nU
+id: message.full
+label: 'Full content'
+targetEntityType: message
+cache: true

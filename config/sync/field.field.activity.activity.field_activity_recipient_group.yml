@@ -1,0 +1,29 @@
+uuid: fbb73a53-508a-4369-8338-c07d5d3ae197
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.activity.field_activity_recipient_group
+  module:
+    - activity_creator
+_core:
+  default_config_hash: GlGXvJdEAy6WuOe6x-V8yYH4YpbOIzoXIDlV7EqPxs8
+id: activity.activity.field_activity_recipient_group
+field_name: field_activity_recipient_group
+entity_type: activity
+bundle: activity
+label: 'Recipient group'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:group'
+  handler_settings:
+    target_bundles: {  }
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,13 @@
+diff --git a/core/modules/system/src/Form/SiteInformationForm.php b/core/modules/system/src/Form/SiteInformationForm.php
+index 4e4e1571fd..d91639ab31 100644
+--- a/core/modules/system/src/Form/SiteInformationForm.php
++++ b/core/modules/system/src/Form/SiteInformationForm.php
+@@ -173,7 +173,7 @@ public function validateForm(array &$form, FormStateInterface $form_state) {
+       $form_state->setErrorByName('site_frontpage', $this->t("The path '%path' has to start with a slash.", ['%path' => $form_state->getValue('site_frontpage')]));
+ 
+     }
+-    if (!$this->pathValidator->isValid($form_state->getValue('site_frontpage'))) {
++    if (!$this->pathValidator->isValid($form_state->getValue('site_frontpage')) && !$this->pathValidator->getUrlIfValidWithoutAccessCheck($form_state->getValue('site_frontpage'))) {
+       $form_state->setErrorByName('site_frontpage', $this->t("Either the path '%path' is invalid or you do not have access to it.", ['%path' => $form_state->getValue('site_frontpage')]));
+     }
+     // Get the normal paths of both error pages.

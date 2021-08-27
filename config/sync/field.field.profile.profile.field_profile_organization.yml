@@ -1,0 +1,21 @@
+uuid: 92084a83-de4c-44df-acb5-754f78a96b17
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_profile_organization
+    - profile.type.profile
+_core:
+  default_config_hash: MI5aCNRQS1YODuX3YH_Spbe-d4XQS8r3mLW5cPBogwQ
+id: profile.profile.field_profile_organization
+field_name: field_profile_organization
+entity_type: profile
+bundle: profile
+label: Organization
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

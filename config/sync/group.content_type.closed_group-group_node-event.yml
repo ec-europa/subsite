@@ -1,0 +1,21 @@
+uuid: a6dc419a-d1bd-4c4a-80c9-2b9869a418ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.closed_group
+    - node.type.event
+  module:
+    - gnode
+    - node
+_core:
+  default_config_hash: tX4Hh9jAWBH2NDtauWJpsEhzY9cU1HwFBcR6PG44vjM
+id: closed_group-group_node-event
+label: event
+description: 'Adds <em class="placeholder">Event</em> content to groups both publicly and privately.'
+group_type: closed_group
+content_plugin: 'group_node:event'
+plugin_config:
+  group_cardinality: 1
+  entity_cardinality: 1
+  use_creation_wizard: false

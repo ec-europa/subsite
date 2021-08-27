@@ -1,0 +1,6 @@
+allow_group_create: true
+allow_group_selection_in_node: false
+address_visibility_settings: false
+default_hero: null
+_core:
+  default_config_hash: c3ayi3VKs6PfVwLsDNnCjrQq4WKsunWvhlFSDXxnncU

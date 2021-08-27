@@ -1,0 +1,12 @@
+uuid: b2f99c47-089f-49a2-bbc4-91825c14cc5a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: lH5r9GEe_slU9Km3e4CFjK_1CCZKKhN6CnMNMJI-390
+id: node.hero
+label: Hero
+targetEntityType: node
+cache: true

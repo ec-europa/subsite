@@ -1,0 +1,21 @@
+uuid: c71ae199-7c12-4577-8043-0a8befae8b02
+langcode: en
+status: true
+dependencies:
+  module:
+    - profile
+    - text
+_core:
+  default_config_hash: FkJq4kx1NxcuV1SQI6xl34VVDeQhK5-7JpajOAhFyrk
+id: profile.field_profile_self_introduction
+field_name: field_profile_self_introduction
+entity_type: profile
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

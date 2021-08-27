@@ -1,0 +1,23 @@
+uuid: 27980469-ec77-4848-b149-abc395f45c96
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_message_context
+    - message.template.moved_content_between_groups
+  module:
+    - options
+_core:
+  default_config_hash: DHKKaETwRULWmbHyvy1ZOz8o4YyHBkYGmZi4Ak7nOV4
+id: message.moved_content_between_groups.field_message_context
+field_name: field_message_context
+entity_type: message
+bundle: moved_content_between_groups
+label: field_message_context
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

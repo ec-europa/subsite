@@ -1,0 +1,31 @@
+uuid: a2e3243a-d9e1-42ff-869a-64addc6e42a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.newest_users
+  module:
+    - system
+    - views
+  theme:
+    - socialblue
+_core:
+  default_config_hash: mlWOPUlOqGooxZZ3xfQK8xr6aAILqMahzflnHRtx7Zs
+id: socialblue_exposedformnewest_userspage_newest_users
+theme: socialblue
+region: complementary_top
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:newest_users-page_newest_users'
+settings:
+  id: 'views_exposed_filter_block:newest_users-page_newest_users'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: Filter
+visibility:
+  request_path:
+    id: request_path
+    pages: /all-members
+    negate: false
+    context_mapping: {  }

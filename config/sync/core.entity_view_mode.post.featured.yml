@@ -1,0 +1,12 @@
+uuid: 14fb7552-d2b6-41c6-ad5d-0d0ad08fad52
+langcode: en
+status: true
+dependencies:
+  module:
+    - social_post
+_core:
+  default_config_hash: '-aiJ-hpnasS25Ws9SU0W6Fn4yEaT3wMLYc4BHrIddrQ'
+id: post.featured
+label: Featured
+targetEntityType: post
+cache: true

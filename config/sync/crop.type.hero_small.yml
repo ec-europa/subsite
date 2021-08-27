@@ -1,0 +1,14 @@
+uuid: d5f6539f-6aee-4115-abf9-a39dcb37b2a1
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ZetiO1I3gg3B9QAfCo4OtzgdBx0i7KI7K1Y7vfgd3nE
+label: 'Small hero'
+id: hero_small
+description: 'A smaller variant for the hero region'
+aspect_ratio: '1200:193'
+soft_limit_width: null
+soft_limit_height: null
+hard_limit_width: null
+hard_limit_height: null

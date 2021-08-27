@@ -1,0 +1,21 @@
+uuid: afafbd10-930c-41b0-b4fd-47941d8f7b14
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_profile_last_name
+    - profile.type.profile
+_core:
+  default_config_hash: 9_xxOGMtmW5HZp6oTwFAUJtHSpgQLf5dFBeuYmkKQ9Y
+id: profile.profile.field_profile_last_name
+field_name: field_profile_last_name
+entity_type: profile
+bundle: profile
+label: 'Last name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

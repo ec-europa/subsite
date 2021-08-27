@@ -1,0 +1,29 @@
+uuid: f1ad1a1f-f036-4acb-9b3a-5bd1ce1fb8d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.flexible_group
+_core:
+  default_config_hash: fbHARNEItS9rCzLTkOMXdSV9ICG0Bp9d1KzUtvMpBZM
+id: flexible_group-outsider
+label: Outsider
+weight: -101
+internal: true
+audience: outsider
+group_type: flexible_group
+permissions_ui: false
+permissions:
+  - 'access comments'
+  - 'access posts in group'
+  - 'join group'
+  - 'request group membership'
+  - 'update own group_node:event entity'
+  - 'update own group_node:topic entity'
+  - 'view group'
+  - 'view group stream page'
+  - 'view group_membership content'
+  - 'view group_node:event content'
+  - 'view group_node:event entity'
+  - 'view group_node:topic content'
+  - 'view group_node:topic entity'

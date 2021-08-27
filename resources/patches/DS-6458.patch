@@ -1,0 +1,20 @@
+diff --git a/js/misc/dialog.ajax.js b/js/misc/dialog.ajax.js
+index 1820062..5d38720 100644
+--- a/js/misc/dialog.ajax.js
++++ b/js/misc/dialog.ajax.js
+@@ -41,7 +41,14 @@
+     var buttons = [];
+     var $buttons = $dialog.find('.form-actions').find('button, input[type=submit], .form-actions a.button');
+     $buttons.each(function () {
+-      var $originalButton = $(this)
++    if (typeof $(this) === 'undefined') {
++      return true;
++    }
++    if ($(this).attr('id').indexOf("edit-actions-save-modal") >= 0) {
++      return true;
++    }
++
++    var $originalButton = $(this)
+         // Prevent original button from being tabbed to.
+         .attr('tabindex', -1)
+         // Visually make the original button invisible, but don't actually hide

@@ -1,0 +1,21 @@
+diff --git a/modules/social_features/social_content_block/src/ContentBuilder.php b/modules/social_features/social_content_block/src/ContentBuilder.php
+index 5634ab895..80118bac3 100644
+--- a/modules/social_features/social_content_block/src/ContentBuilder.php
++++ b/modules/social_features/social_content_block/src/ContentBuilder.php
+@@ -182,6 +182,16 @@ class ContentBuilder implements ContentBuilderInterface {
+         ->getStorage($definition['entityTypeId'])
+         ->loadMultiple($entities);
+ 
++      // @TODO: Fix this by making the entire codebase use a
++      // QueryInterface instead of a SelectInterface, so we can do
++      // the access check within the query itself.
++      // Now we cannot respect the range we set in the query.
++      foreach ($entities as $key => $entity) {
++        if ($entity->access('view') === FALSE) {
++          unset($entities[$key]);
++        }
++      }
++
+       return $this->entityTypeManager
+         ->getViewBuilder($definition['entityTypeId'])
+         ->viewMultiple($entities, 'small_teaser');

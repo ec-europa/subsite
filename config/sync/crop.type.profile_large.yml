@@ -1,0 +1,14 @@
+uuid: 2fe480b1-e220-4793-97e7-42d6f827d077
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ipH9i3U2KcpkZwClnE8s81D8KGCOBU_LiGM8NSf9usw
+label: 'Profile large'
+id: profile_large
+description: 'Large sized profile image'
+aspect_ratio: '128:128'
+soft_limit_width: null
+soft_limit_height: null
+hard_limit_width: null
+hard_limit_height: null

@@ -1,0 +1,17 @@
+uuid: 8642931b-a57c-4a7e-a9e9-73a5d2fe1a7d
+langcode: en
+status: true
+dependencies:
+  module:
+    - votingapi
+title: 'Default cron handler'
+id: votingapi_cron
+weight: 0
+module: votingapi
+callback: votingapi_cron
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

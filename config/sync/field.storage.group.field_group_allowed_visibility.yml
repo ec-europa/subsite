@@ -1,0 +1,32 @@
+uuid: e1f4fa4b-a26e-4ce2-8f58-241ec4a8ad9d
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - options
+_core:
+  default_config_hash: PwuflHp3177kMRzGb9zq5EYjka8TUeU0k0ZAKhLV9pc
+id: group.field_group_allowed_visibility
+field_name: field_group_allowed_visibility
+entity_type: group
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: public
+      label: Public
+    -
+      value: community
+      label: Community
+    -
+      value: group
+      label: 'Group members'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

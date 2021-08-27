@@ -1,0 +1,23 @@
+uuid: fac955c2-67fd-4e82-9c92-f0efdc58f498
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_message_context
+    - message.template.create_post_profile
+  module:
+    - options
+_core:
+  default_config_hash: EAGu8TKJjmsfx5M-qAp-hUpvKNd5rykX_l9rSIMrlWA
+id: message.create_post_profile.field_message_context
+field_name: field_message_context
+entity_type: message
+bundle: create_post_profile
+label: Context
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

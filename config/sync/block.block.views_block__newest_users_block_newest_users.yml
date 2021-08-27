@@ -1,0 +1,33 @@
+uuid: 05cb7593-01a1-4738-a5fa-fd499f65f2d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.newest_users
+  module:
+    - system
+    - views
+  theme:
+    - socialbase
+_core:
+  default_config_hash: t4Q_Vg3aGgbsgxCoUdM7l7JFrtcCwPKK92DCCoLt1_A
+id: views_block__newest_users_block_newest_users
+theme: socialbase
+region: complementary_bottom
+weight: 5
+provider: null
+plugin: 'views_block:newest_users-block_newest_users'
+settings:
+  id: 'views_block:newest_users-block_newest_users'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  type: none
+visibility:
+  request_path:
+    id: request_path
+    pages: "/stream\r\n/explore"
+    negate: false
+    context_mapping: {  }

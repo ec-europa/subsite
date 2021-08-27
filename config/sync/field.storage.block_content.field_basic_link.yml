@@ -1,0 +1,21 @@
+uuid: e1e4dce3-4a9b-4f2a-93d6-df1ec9df32dd
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - link
+_core:
+  default_config_hash: 51JFVJJWyBBKPIsVW_IauTeU8GnEnNUw9JIeIOAbJsI
+id: block_content.field_basic_link
+field_name: field_basic_link
+entity_type: block_content
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,40 @@
+uuid: 7183f716-f935-459a-8112-ca8ea7d16e96
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.font.font.field_fallback
+    - field.field.font.font.field_fonts
+  module:
+    - file
+    - social_font
+_core:
+  default_config_hash: dYzp0RuuEZzmCoZBqPEVxVBOszHFBxBfKimuQSWv8e4
+id: font.font.default
+targetEntityType: font
+bundle: font
+mode: default
+content:
+  field_fallback:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_fonts:
+    weight: 2
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
+    region: content
+  name:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  user_id: true

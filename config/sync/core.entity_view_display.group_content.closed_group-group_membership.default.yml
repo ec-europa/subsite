@@ -1,0 +1,25 @@
+uuid: b9282d76-de2c-46cc-8ddc-bde78f7007ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group_content.closed_group-group_membership.group_roles
+    - group.content_type.closed_group-group_membership
+_core:
+  default_config_hash: TPNTm53CtHf9dVSuHM1ewvdvF4p9YqixqB2xCYKXoFc
+id: group_content.closed_group-group_membership.default
+targetEntityType: group_content
+bundle: closed_group-group_membership
+mode: default
+content:
+  entity_id:
+    type: entity_reference_entity_id
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  group_roles: true
+  search_api_excerpt: true
+  uid: true

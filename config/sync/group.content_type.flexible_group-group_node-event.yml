@@ -1,0 +1,22 @@
+uuid: bc06f3f7-290c-4b2e-8a12-9b66082481d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.flexible_group
+    - node.type.event
+  module:
+    - gnode
+    - node
+    - social_group_flexible_group
+_core:
+  default_config_hash: I4Ru7pPdPphNee2H88HeLNmlNSzl-wxZAjXfgKuEzeg
+id: flexible_group-group_node-event
+label: event
+description: 'Adds <em class="placeholder">Event</em> content to groups using private content settings.'
+group_type: flexible_group
+content_plugin: 'group_node:event'
+plugin_config:
+  group_cardinality: 1
+  entity_cardinality: 1
+  use_creation_wizard: false

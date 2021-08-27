@@ -1,0 +1,21 @@
+uuid: 320f38f3-0909-49e5-8dc6-c8bf1b829cf1
+langcode: en
+status: true
+dependencies:
+  module:
+    - profile
+    - telephone
+_core:
+  default_config_hash: zaEMedj8WrB-79vF7mQtEcQPXcjUyJCY-LfFyxMoMZ8
+id: profile.field_profile_phone_number
+field_name: field_profile_phone_number
+entity_type: profile
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

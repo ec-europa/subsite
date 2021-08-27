@@ -1,0 +1,35 @@
+uuid: 11f74e54-df0f-4933-9f22-1fe87b4065c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+    - user
+  theme:
+    - socialblue
+_core:
+  default_config_hash: B2tojDJyWg4NEUWtwg0U0WoKVUsG4p_4TuBXTIbW3S0
+id: socialblue_account_menu
+theme: socialblue
+region: header
+weight: 1
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility:
+  user_role:
+    id: user_role
+    roles:
+      anonymous: anonymous
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

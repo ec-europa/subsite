@@ -1,0 +1,36 @@
+uuid: 59a30358-7769-4d89-8e0f-ea3a618c3e1b
+langcode: en
+status: true
+dependencies:
+  module:
+    - activity_creator
+    - comment
+    - dynamic_entity_reference
+    - group
+    - message
+    - node
+    - path_alias
+_core:
+  default_config_hash: '-WUuqx-m7OF_oD5WaVM3HvkY9ysyR3x9cWYly_au0_I'
+id: activity.field_activity_entity
+field_name: field_activity_entity
+entity_type: activity
+type: dynamic_entity_reference
+settings:
+  exclude_entity_types: true
+  entity_type_ids:
+    activity: activity
+    block_content: block_content
+    menu_link_content: menu_link_content
+    file: file
+    group_content: group_content
+    profile: profile
+    taxonomy_term: taxonomy_term
+    user: user
+module: dynamic_entity_reference
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

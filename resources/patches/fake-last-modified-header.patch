@@ -1,0 +1,13 @@
+diff --git a/core/modules/locale/locale.batch.inc b/core/modules/locale/locale.batch.inc
+index c1b2fd98a1..80d3725a00 100644
+--- a/core/modules/locale/locale.batch.inc
++++ b/core/modules/locale/locale.batch.inc
+@@ -252,7 +252,7 @@ function locale_translation_http_check($uri) {
+       $result['location'] = $actual_uri;
+     }
+
+-    $result['last_modified'] = $response->hasHeader('Last-Modified') ? strtotime($response->getHeaderLine('Last-Modified')) : 0;
++    $result['last_modified'] = $response->hasHeader('Last-Modified') ? strtotime($response->getHeaderLine('Last-Modified')) : 5000000000;
+     return $result;
+   }
+   catch (RequestException $e) {

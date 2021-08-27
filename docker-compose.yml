@@ -1,0 +1,44 @@
+version: '2'
+services:
+  web:
+    image: fpfis/httpd-php:7.4-dev
+    working_dir: ${PWD}
+    ports:
+      - 8080:8080
+    volumes:
+      - ${PWD}:${PWD}
+      - $HOME/.composer/.auth.json:$HOME/.composer/.auth.json
+    environment:
+      ASDA_USER:
+      ASDA_PASSWORD:
+      GITHUB_API_TOKEN:
+      GITLAB_API_TOKEN:
+      DOCUMENT_ROOT: ${PWD}
+      XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254 remote_port=9000 idekey=PHPSTORM remote_autostart=1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+    env_file:
+      - .env
+
+  mysql:
+    image: percona/percona-server:5.7
+    command: --innodb-log-file_size=2G --max-allowed-packet=1G --innodb-buffer-pool-size=512M --wait-timeout=31536000
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - mysql:/var/lib/mysql
+
+  selenium:
+    image: selenium/standalone-chrome:3.141.59
+    volumes:
+      - /dev/shm:/dev/shm
+    shm_size: '1gb'
+    environment:
+      - DISPLAY=:99
+      - SE_OPTS=-debug
+    ports:
+      - 5900:5900
+    expose:
+      - 4444
+
+volumes:
+  mysql:

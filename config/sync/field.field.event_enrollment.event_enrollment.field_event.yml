@@ -1,0 +1,29 @@
+uuid: cead491a-a60e-4427-a21c-d99798457fe9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.event_enrollment.field_event
+    - node.type.event
+  module:
+    - social_event
+_core:
+  default_config_hash: 56rCHyN4MH2CM_k3K54uM--9375SSxZQ5xFYG7TQljk
+id: event_enrollment.event_enrollment.field_event
+field_name: field_event
+entity_type: event_enrollment
+bundle: event_enrollment
+label: Event
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      event: event
+    sort:
+      field: _none
+field_type: entity_reference

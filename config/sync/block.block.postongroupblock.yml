@@ -1,0 +1,28 @@
+uuid: 2226506e-bd06-42b7-b137-d77b33a97902
+langcode: en
+status: true
+dependencies:
+  module:
+    - social_post
+    - system
+  theme:
+    - socialbase
+_core:
+  default_config_hash: jM4rDaxSleva7mQiyaRj-ESpAcur9wzSXDfeXdGbOjk
+id: postongroupblock
+theme: socialbase
+region: hidden
+weight: -9
+provider: null
+plugin: post_group_block
+settings:
+  id: post_group_block
+  label: 'Post on group block'
+  provider: social_post
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: '/group/*/stream'
+    negate: false
+    context_mapping: {  }

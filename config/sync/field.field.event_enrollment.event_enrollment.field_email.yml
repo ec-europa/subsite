@@ -1,0 +1,22 @@
+uuid: 16747230-db26-4098-88fd-4d79bab57599
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.event_enrollment.field_email
+  module:
+    - social_event
+_core:
+  default_config_hash: R_91zs47PZEqBaASRXki7wiGMLhe3J-sWir0R8w2Fhg
+id: event_enrollment.event_enrollment.field_email
+field_name: field_email
+entity_type: event_enrollment
+bundle: event_enrollment
+label: 'Email address'
+description: 'Enter your email, so we can send you event updates.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

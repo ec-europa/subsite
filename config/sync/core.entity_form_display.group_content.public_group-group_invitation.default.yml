@@ -1,0 +1,33 @@
+uuid: b6858277-10c4-4796-92f5-31b0493a471e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group_content.public_group-group_invitation.group_roles
+    - field.field.group_content.public_group-group_invitation.invitation_status
+    - field.field.group_content.public_group-group_invitation.invitee_mail
+    - group.content_type.public_group-group_invitation
+id: group_content.public_group-group_invitation.default
+targetEntityType: group_content
+bundle: public_group-group_invitation
+mode: default
+content:
+  group_roles:
+    type: options_buttons
+    weight: 31
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  invitee_mail:
+    type: email_default
+    weight: -1
+    settings:
+      placeholder: example@example.com
+      size: 60
+    third_party_settings: {  }
+    region: content
+hidden:
+  entity_id: true
+  invitation_status: true
+  path: true
+  uid: true

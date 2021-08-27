@@ -1,0 +1,36 @@
+uuid: 3df4ebfc-357e-4f6a-9e26-1d9ec70040e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_group_address
+    - group.type.flexible_group
+  module:
+    - address
+_core:
+  default_config_hash: 2mSRqIkWY9H7HpCbs-hpmy-6QPLF0itM4Eqs03XEXYw
+id: group.flexible_group.field_group_address
+field_name: field_group_address
+entity_type: group
+bundle: flexible_group
+label: Address
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries: {  }
+  fields:
+    administrativeArea: administrativeArea
+    locality: locality
+    postalCode: postalCode
+    addressLine1: addressLine1
+    dependentLocality: '0'
+    sortingCode: '0'
+    addressLine2: '0'
+    organization: '0'
+    recipient: '0'
+  langcode_override: ''
+  field_overrides: {  }
+field_type: address
