@@ -18,7 +18,6 @@ latest.sh1
 .editorconfig
 
 # Ignore local configuration files.
-/.env
 /behat.yml
 /grumphp.yml
 /runner.yml
