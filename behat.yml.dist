@@ -19,7 +19,17 @@ default:
       javascript_session: 'selenium2'
       selenium2:
         wd_host: '${selenium.host}:${selenium.port}/wd/hub'
-        capabilities: { "browser": '${selenium.browser}', "version": "*" }
+        browser: '${selenium.browser}'
+        capabilities:
+          browser: '${selenium.browser}'
+          chrome:
+            switches:
+              - "--headless"
+              - "--disable-gpu"
+          extra_capabilities:
+            unexpectedAlertBehaviour: accept
+            goog:chromeOptions:
+              w3c: false
       base_url: "${drupal.base_url}"
     Drupal\DrupalExtension:
       api_driver: "drupal"
