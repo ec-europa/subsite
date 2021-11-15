@@ -15,7 +15,7 @@
         "webflo/drupal-finder": "^1.0",
         "openeuropa/oe_dashboard_agent": "~0.2.0",
         "drupal/dropsolid_purge": "^1.0@beta",
-        "webmozart/path-util": "^2.3",
+        "webmozart/path-util": "^2.3.0",
         "drupal/redis": "^1.5",
         "drupal/redirect": "^1.6"
     },
