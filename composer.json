@@ -13,7 +13,7 @@
         "drupal/core-composer-scaffold": "^9.2",
         "drush/drush": "^10.0",
         "webflo/drupal-finder": "^1.0",
-        "openeuropa/oe_dashboard_agent": "~0.2.0",
+        "openeuropa/oe_dashboard_agent": "~0.3",
         "drupal/dropsolid_purge": "^1.0@beta",
         "webmozart/path-util": "^2.3.0",
         "drupal/redis": "^1.5",
