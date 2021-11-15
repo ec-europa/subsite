@@ -13,7 +13,11 @@
         "drupal/core-composer-scaffold": "^9.2",
         "drush/drush": "^10.0",
         "webflo/drupal-finder": "^1.0",
-        "webmozart/path-util": "^2.3"
+        "openeuropa/oe_dashboard_agent": "~0.2.0",
+        "drupal/dropsolid_purge": "^1.0@beta",
+        "webmozart/path-util": "^2.3",
+        "drupal/redis": "^1.5",
+        "drupal/redirect": "^1.6"
     },
     "require-dev": {
         "drupal/core-dev": "^9.2",
@@ -29,12 +33,15 @@
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
         ]
     },
-    "repositories": {
-        "drupal": {
+    "repositories": [{
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/openeuropa/oe_dashboard_agent"
         }
-    },
+    ],
     "extra": {
         "drupal-scaffold": {
             "allowed-packages": [
