@@ -1,39 +1,64 @@
 version: '2'
 services:
   web:
-    image: fpfis/httpd-php:7.4-dev
+    image: registry.fpfis.eu/fpfis/httpd-php:7.4-dev
     working_dir: ${PWD}
-    ports:
-      - 8080:8080
     volumes:
-      - ${PWD}:${PWD}
-      - $HOME/.composer/.auth.json:$HOME/.composer/.auth.json
+      - ${PWD}:${PWD} # Non Mac users.
+      # - nfsmount:${PWD} # Mac Users with the nfsmount volume.
     environment:
+      DOCUMENT_ROOT: ${PWD}
+      # ASDA CREDENTIALS
+      # By leaving these variables empty Docker Compose will set them to their host values.
       ASDA_USER:
       ASDA_PASSWORD:
       GITHUB_API_TOKEN:
-      DOCUMENT_ROOT: ${PWD}
-      XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254 remote_port=9000 idekey=PHPSTORM remote_autostart=1"
+      GITLAB_API_TOKEN:
+      QA_API_BASIC_AUTH:
+      QA_WEBSITE_URL:
+      QA_WEBSITE_TOKEN:
+      # XDEBUG CONFIGURATION
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9003 remote_enable=1
       PHP_IDE_CONFIG: "serverName=Docker"
+      # For Xdebug setup, run this command in the terminal:
+      # For Mac users: sudo ifconfig en0 alias 10.254.254.254 255.255.255.0
+      # For Linux users: sudo ip addr add 10.254.254.254/32 dev lo label lo:1
     env_file:
       - .env
 
   mysql:
-    image: percona/percona-server:5.7
+    image: registry.fpfis.eu/fpfis/sql:percona-5.7
+    command: --innodb-log-file_size=2G --max-allowed-packet=1G --innodb-buffer-pool-size=512M --wait-timeout=31536000
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - mysql:/var/lib/mysql
 
+  # Spawn a Selenium server which also includes a VNC server on localhost:5900 (the password is "secret")
   selenium:
-    image: selenium/standalone-chrome:3.141.59
+    image: selenium/standalone-chrome:3.141.59-20210913
+    volumes:
+      - /dev/shm:/dev/shm
+    shm_size: '2gb'
     environment:
       - DISPLAY=:99
       - SE_OPTS=-debug
-    ports:
-      - 5900:5900
     expose:
       - 4444
 
+  varnish:
+    image: registry.fpfis.eu/fpfis/varnish/docker:65-dev
+    environment:
+    - VARNISH_DEVOPS_EXTERNAL_IPS=172.0.0.0/8
+
 volumes:
   mysql:
+
+  # Mac users: uncomment the "nfsmount" key to enable the NFS file sharing.
+  # @see https://github.com/openeuropa/documentation/blob/master/docs/development/tooling.md#using-docker-on-macos
+  # nfsmount:
+  #   driver: local
+  #   driver_opts:
+  #     type: nfs
+  #     o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+  #     device: ":${PWD}/"
