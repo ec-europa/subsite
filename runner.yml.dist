@@ -3,14 +3,84 @@ drupal:
     base_url: '${env.DRUPAL_BASE_URL}'
     site:
         profile: social
-        name: token_project_name
+        name: Open Social
         generate_db_url: false
-        default_theme: socialblue
-        mail: token_project_email
+        mail: DIGIT-DRUPAL-DEVSECOPS@ec.europa.eu
     account:
         name: '${env.DRUPAL_ACCOUNT_USERNAME}'
         password: '${env.DRUPAL_ACCOUNT_PASSWORD}'
-        mail: token_project_email
+        mail: DIGIT-DRUPAL-DEVSECOPS@ec.europa.eu
+    post_install:
+        - "./vendor/bin/drush pmu update -y"
+        - "./vendor/bin/drush en oec_core -y"
+    additional_settings: |
+        // Install with the 'social' profile.
+        $settings['install_profile'] = 'social';
+        // Ensure new deployments rebuild the services container.
+        //
+        // Musa sets this to the timestamp of the deployment
+        // for us, so it will be updated on each deployment.
+        $settings['deployment_identifier'] = "1647942360";
+        // Configure the default PhpStorage and Twig template cache directories.
+        if (!isset($settings['php_storage']['default'])) {
+          $settings['php_storage']['default']['directory'] = $settings['file_private_path'];
+        }
+        if (!isset($settings['php_storage']['twig'])) {
+          $settings['php_storage']['twig']['directory'] = $settings['file_private_path'];
+        }
+        // Configure the trusted host patterns.
+        $settings['trusted_host_patterns'] = explode(',', getenv('DRUPAL_TRUSTED_HOST_PATTERNS'));
+        // Override site email.
+        $settings['system.site']['mail'] = getenv('SMTP_FROM');
+        // Dashboard settings.
+        $settings['oe_dashboard_agent.token'] = getenv('DASHBOARD_TOKEN');
+        $settings['oe_dashboard_agent.allowed_ips'] = explode(',', getenv('DASHBOARD_ALLOWED_IPS'));
+        // Set reverse proxy.
+        $settings['reverse_proxy'] = (bool) getenv('DRUPAL_REVERSE_PROXY_ENABLE');
+        $settings['reverse_proxy_addresses'] = explode(',', getenv('DRUPAL_REVERSE_PROXY_ADDRESSES'));
+        // CAS settings for EC.
+        $settings['cas.settings']['server']['hostname'] = 'ecas.ec.europa.eu';
+        $settings['cas.settings']['server']['port'] = '443';
+        $settings['cas.settings']['server']['path'] = '/cas';
+        // OE Authentication settings.
+        // https://github.com/openeuropa/oe_authentication
+        // This is the default value.
+        // $settings['oe_authentication.settings']['protocol'] = 'eulogin';
+        // This is the default value.
+        // $settings['oe_authentication.settings']['register_path'] = 'eim/external/register.cgi';
+        // This is the default value.
+        // $settings['oe_authentication.settings']['validation_path'] = 'TicketValidationService';
+        // Defaults to TOP.
+        $settings['oe_authentication.settings']['assurance_level'] = 'LOW';
+        // This is the default value.
+        // $settings['oe_authentication.settings']['ticket_types'] = 'SERVICE,PROXY';
+        // SOLR configuration.
+        $config['search_api.server.social_solr'] = [
+            'backend_config' => [
+                'connector_config' => [
+                    'host' => getenv('SEARCH_API_SERVER_SS_SOLR_HOST'),
+                    'path' => getenv('SEARCH_API_SERVER_SS_SOLR_PATH'),
+                    'core' => getenv('SEARCH_API_SERVER_SS_SOLR_CORE'),
+                    'port' => getenv('SEARCH_API_SERVER_SS_SOLR_PORT'),
+                ],
+            ],
+        ];
+        // Purge configuration.
+        if (!empty(getenv('DRUPAL_VARNISH_HOSTS'))) {
+          $config['dropsolid_purge.config']['site_name'] = getenv('DRUPAL_SITE_NAME');
+          $config['dropsolid_purge.config']['site_environment'] = getenv('DRUPAL_ENVIRONMENT');
+          $config['dropsolid_purge.config']['site_group'] = getenv('DRUPAL_VARNISH_GROUP');
+          $load_balancers = [];
+          $drupal_flush_cred = getenv('DRUPAL_FLUSH_CREDS');
+          foreach (explode(',', getenv('DRUPAL_VARNISH_HOSTS')) as $ip) {
+            $load_balancers[$ip] = [
+              'ip' => $drupal_flush_cred . '@' . trim($ip),
+              'protocol' => 'http',
+              'port' => '7790',
+            ];
+          }
+          $config['dropsolid_purge.config']['loadbalancers'] = $load_balancers;
+        }
 behat:
     tags: ~@wip
 selenium:
