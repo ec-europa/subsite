@@ -1,34 +1,27 @@
 {
-    "name": "token_project_vendor/token_project_id",
-    "description": "token_project_description",
+    "name": "digit/opensocial",
+    "description": "Open Social tailored for the European Commission",
     "type": "project",
     "license": "EUPL-1.2",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "composer/installers": "^1.0",
-        "drupal/cas": "1.6",
-        "drupal/core-composer-scaffold": "^8.9.6",
-        "drupal/matomo": "^1.9",
-        "drupal/social_api": "^1.1",
-        "drupal/social_auth": "^1.0",
-        "drupal/social_geolocation": "^1.0",
+        "drupal/dropsolid_purge": "^1.0",
+        "drupal/graphql": "4.2 as 4.1",
+        "drupal/social_geolocation": "^2.0",
+        "drupal/social_kpi_lite": "^2.0",
         "drupal/social_pwa": "^1.0",
-        "drupal/views_data_export": "^1.0@beta",
-        "drupal/webform": "^5.12",
-        "drupal/lazy":"^2.0",
         "drush/drush": "^10.0",
-        "goalgorilla/open_social": "^10.2",
-        "monolog/monolog": "^1.24",
-        "openeuropa/oe_authentication": "^1.3",
-        "openeuropa/oe_webtools": "^1.12",
-        "php": ">=7.4",
-        "psr/cache": "^1.0"
+        "goalgorilla/oec_core": "^1.0",
+        "goalgorilla/open_social": "^11.1.0",
+        "php": "^7.4",
+        "psr/cache": "^1.0",
+        "symfony/deprecation-contracts": "^2.4"
     },
     "require-dev": {
-        "drupal/drupal-driver": "2.1.1",
-        "drupal/drupal-extension": "~4.0",
-        "ec-europa/toolkit": "^4.5.4"
+        "drupal/drupal-driver": "^2.1",
+        "drupal/drupal-extension": "^4.0",
+        "ec-europa/toolkit": "^4.5.5"
     },
     "scripts": {
         "post-root-package-install": [
@@ -39,6 +32,27 @@
         ]
     },
     "repositories": {
+        "oec_core": {
+            "type": "path",
+            "url": "lib/modules/oec_core",
+            "options": {
+                "symlink": false
+            }
+        },
+        "social_eu_login": {
+            "type": "path",
+            "url": "lib/modules/social_eu_login",
+            "options": {
+                "symlink": false
+            }
+        },
+        "social_oe_webtools": {
+            "type": "path",
+            "url": "lib/modules/social_oe_webtools",
+            "options": {
+                "symlink": false
+            }
+        },
         "assets": {
             "type": "composer",
             "url": "https://asset-packagist.org"
@@ -91,22 +105,12 @@
                 "Prevent loading of Ckeditor buttons Safari": "resources/patches/DS-6458.patch"
             },
             "drupal/core": {
-                "Ensure views exposed form in a form block keeps contextual arguments": "https://www.drupal.org/files/issues/2020-04-17/views-exposed-form-block-args-2821962-30-8.8-notest.patch",
                 "Fake the Last-Modified HTTP header coming from Weblate": "resources/patches/fake-last-modified-header.patch",
-                "Prevent basic site settings error for invalid path": "resources/patches/drupal-access-check-site-settings.patch",
-                "Allow install from config for custom profiles": "https://www.drupal.org/files/issues/2020-11-25/2982052-55.patch"
+                "Prevent basic site settings error for invalid path": "resources/patches/drupal-access-check-site-settings.patch"
             },
             "drupal/field_group": {
                 "Error: Unsupported operand types": "https://www.drupal.org/files/issues/2020-12-18/3032426-10.patch",
                 "Undefined property: stdClass::$region in field_group_form_process().": "https://www.drupal.org/files/issues/2020-06-15/3059614-37.patch"
-            },
-            "drupal/group": {
-                "Group Invite works with SSO": "https://www.drupal.org/files/issues/2020-09-08/ginvite_module_port-2801603-115.patch"
-            },
-            "goalgorilla/open_social": {
-                "DE-195 by jochemvn - Remove entities the current user has no access to: ": "resources/patches/gpi/DE-195.patch",
-                "DS-5579 Users receive emails of new unpublished content": "resources/patches/unpublished-content-notifications.patch",
-                "Fix embed test": "resources/patches/fix-test-embed.patch"
             },
             "openeuropa/oe_authentication": {
                 "Remove unneeded user cancel methods for EU Login feature": "resources/patches/oe_authentication-remove_user_cancel_methods.patch"
