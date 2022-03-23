@@ -1,0 +1,5 @@
+oec_core_footer.oec_footer_settings:
+  title: 'OEC Footer settings'
+  description: 'Provide general settings for footer'
+  route_name: oec_core_footer.oec_footer_settings
+  parent: social_core.admin.config.social

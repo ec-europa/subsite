@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains oec_core module file.
+ */
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function oec_core_preprocess_page(array &$variables): void {
+  $variables['#attached']['library'][] = 'oec_core/oec-core';
+}

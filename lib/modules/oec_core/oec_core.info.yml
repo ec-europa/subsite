@@ -1,0 +1,7 @@
+name: 'OEC Core'
+description: 'Provides core functionality for Open Europa Communities.'
+type: module
+core_version_requirement: ^8.8 || ^9
+package: OEC
+project: oec_core
+php: 7.4

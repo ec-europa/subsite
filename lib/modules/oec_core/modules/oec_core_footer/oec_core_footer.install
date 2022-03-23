@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Lifecycle functions for the OEC Core Footer module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+ * Update OEC Footer settings.
+ */
+function oec_core_footer_update_8900(): void {
+  $path = drupal_get_path('module', 'oec_core_footer') . '/config/install';
+  $source = new FileStorage($path);
+  $config_factory = Drupal::configFactory();
+  $config = $config_factory->getEditable('oec_core_footer.settings');
+  $source_config = (array) $source->read('oec_core_footer.settings');
+  $config->set('social_media_links', $source_config['social_media_links']);
+  $config->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function oec_core_footer_uninstall(): void {
+  // Delete module settings.
+  \Drupal::configFactory()->getEditable('oec_core_footer.settings')->delete();
+}

@@ -1,0 +1,5 @@
+social_eu_login.settings:
+  title: 'Social EU Login settings'
+  description: 'Provide general settings for EU Login'
+  route_name: social_eu_login.settings
+  parent: social_core.admin.config.social

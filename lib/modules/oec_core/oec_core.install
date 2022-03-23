@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the oec_core module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function oec_core_install(): void {
+  // Install default OEC modules.
+  $modules = [
+    'social_oe_webtools',
+    'social_eu_login',
+    'oec_core_footer',
+  ];
+  \Drupal::service('module_installer')->install($modules);
+
+  // Set default EC site mail.
+  $config = \Drupal::service('config.factory')->getEditable('system.site');
+  $config->set('mail', 'automated-notifications@nomail.ec.europa.eu')->save();
+}

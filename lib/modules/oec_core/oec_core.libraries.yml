@@ -1,0 +1,6 @@
+oec-core:
+  css:
+    theme:
+      assets/css/oec_core.css: {}
+  js:
+    assets/js/oec_core.js: {}

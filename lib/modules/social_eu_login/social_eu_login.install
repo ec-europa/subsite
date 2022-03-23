@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the social_eu_login module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\social_eu_login\Form\EULoginSettingsForm;
+
+/**
+ * Implements hook_install().
+ */
+function social_eu_login_install(): void {
+  // Add link about the EU Login during install.
+  $menu_link = MenuLinkContent::create([
+    'title' => t('More about the EU Login'),
+    'link' => ['uri' => 'https://webgate.ec.europa.eu/cas/about.html'],
+    'menu_name' => 'account',
+    'expanded' => FALSE,
+  ]);
+  $menu_link->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function social_eu_login_uninstall(): void {
+  // Delete link about the EU Login during uninstall.
+  $links = \Drupal::entityTypeManager()->getStorage('menu_link_content')
+    ->loadByProperties(['title' => 'More about the EU Login']);
+  if ($link = reset($links)) {
+    $link->delete();
+  }
+
+  // Delete module configuration.
+  \Drupal::configFactory()->get(EULoginSettingsForm::CONFIG_NAME)->delete();
+}
+
+/**
+ * Add "EU Login" settings config file.
+ */
+function social_eu_login_update_8900(): void {
+  $path = drupal_get_path('module', 'social_eu_login') . '/config/install';
+  $source = new FileStorage($path);
+  $config_storage = \Drupal::service('config.storage');
+  $config_storage->write(EULoginSettingsForm::CONFIG_NAME, (array) $source->read(EULoginSettingsForm::CONFIG_NAME));
+}

@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Contains social_oe_webtools module file.
+ */
+
+use Drupal\Component\Serialization\Json;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Render\Markup;
+use Drupal\node\Entity\NodeType;
+
+/**
+ * Implements hook_theme().
+ */
+function social_oe_webtools_theme(): array {
+  // Replace Webtools sharing template to adjust styling with Open Social.
+  $theme_templates['oe_webtools_social_share'] = [
+    'base hook' => 'block',
+  ];
+
+  return $theme_templates;
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function social_oe_webtools_entity_extra_field_info(): array {
+  $extra = [];
+  // Replace shariff_field which is used in Open Social with Webtools sharing.
+  $module_handler = \Drupal::service('module_handler');
+  if (!$module_handler->moduleExists('shariff')) {
+    foreach (NodeType::loadMultiple() as $bundle) {
+      $extra['node'][$bundle->Id()]['display']['shariff_field'] = [
+        'label' => t('OpenEuropa Webtools Social Share'),
+        'description' => t('Display of OpenEuropa sharing buttons using default settings.'),
+        'weight' => 100,
+        'visible' => FALSE,
+      ];
+    }
+    $extra['group']['challenge']['display']['shariff_field'] = [
+      'label' => t('OpenEuropa Webtools Social Share'),
+      'description' => t('Display of OpenEuropa sharing buttons using default settings.'),
+      'weight' => 100,
+      'visible' => FALSE,
+    ];
+  }
+
+  return $extra;
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function social_oe_webtools_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, string $view_mode): void {
+  // Replace shariff_field which is used in Open Social with Webtools sharing.
+  $entity_types = ['node', 'group'];
+  if (in_array($entity->getEntityType()->id(), $entity_types) && $display->getComponent('shariff_field')) {
+    $social_share_json = [
+      'service' => 'share',
+      'popup' => FALSE,
+      'selection' => TRUE,
+      'to' => [
+        'more',
+        'twitter',
+        'facebook',
+      ],
+      'stats' => TRUE,
+    ];
+
+    $build['shariff_field'] = [
+      '#theme' => 'oe_webtools_social_share',
+      '#icons_json' => Markup::create(Json::encode($social_share_json)),
+      '#attached' => [
+        'library' => [
+          'oe_webtools/drupal.webtools-smartloader',
+          'social_oe_webtools/oec-share',
+        ],
+      ],
+    ];
+  }
+}

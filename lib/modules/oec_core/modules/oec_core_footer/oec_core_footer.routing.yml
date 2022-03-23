@@ -1,0 +1,7 @@
+oec_core_footer.oec_footer_settings:
+  path: '/admin/config/oec-footer-settings'
+  defaults:
+    _form: '\Drupal\oec_core_footer\Form\OecCoreFooterSettingsForm'
+    _title: 'OEC Footer settings'
+  requirements:
+    _permission: 'administer oec footer settings'

@@ -1,0 +1,9 @@
+name: 'Social EU Login'
+description: 'Authentication against the OpenEuropa Authentication service'
+type: module
+core_version_requirement: ^8.8 || ^9
+package: OEC
+project: social_eu_login
+dependencies:
+  - oe_authentication:oe_authentication
+php: 7.4

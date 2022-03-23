@@ -1,0 +1,11 @@
+{
+    "name": "goalgorilla/oec_core",
+    "type": "drupal-module",
+    "description": "Provides core functionality for Open Europa Communities.",
+    "require": {
+        "goalgorilla/social_eu_login": "^1.0",
+        "goalgorilla/social_oe_webtools": "^1.0",
+        "php": "^7.4"
+    },
+    "version": "1.2.3"
+}

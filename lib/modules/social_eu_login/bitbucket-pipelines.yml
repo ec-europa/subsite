@@ -1,0 +1,67 @@
+# Test and linting pipeline for Open Social extensions.
+image: goalgorilla/open_social_docker:dev
+
+pipelines:
+  default:
+    - step:
+        name: Prepare Project
+        script:
+          # Install jq so we can find the module under test's name
+          - apt-get -y install jq
+          # Ensure we use composer 1 as we don't yet support composer 2
+          - composer self-update --1
+          - composer config --global github-protocols https
+          # Create a temporary folder for our extension
+          - mkdir __PIPELINE_TESTED_EXTENSION
+          # Move all files to that folder without trying to move the folder itself as that causes errors
+          - find ./* -maxdepth 0 ! \( -path __PIPELINE_TESTED_EXTENSION -prune \) ! -name __PIPELINE_TESTED_EXTENSION -exec mv {} __PIPELINE_TESTED_EXTENSION/ \;
+
+          # Create a working directory
+          - mkdir __PIPELINE_WORKDIR
+          - cd __PIPELINE_WORKDIR
+          # Prepare some environment variables and store them for other steps.
+          - export EXTENSION_PROJECT_NAME=`cat "$BITBUCKET_CLONE_DIR/__PIPELINE_TESTED_EXTENSION/composer.json" | jq -r '.name'`
+          - export EXTENSION_MODULE_NAME=`echo $EXTENSION_PROJECT_NAME | cut -d "/" -f2`
+          - echo -e "EXTENSION_PROJECT_NAME='$EXTENSION_PROJECT_NAME'\nEXTENSION_MODULE_NAME='$EXTENSION_MODULE_NAME'" > .env.test.local
+          # Copy the test composer json to the project root
+          - cp "$BITBUCKET_CLONE_DIR/__PIPELINE_TESTED_EXTENSION/tests/composer.json" .
+          # Add our module to be tested as repository
+          - composer config repositories.test_module path "$BITBUCKET_CLONE_DIR/__PIPELINE_TESTED_EXTENSION"
+          # Install the test module
+          - composer require $EXTENSION_PROJECT_NAME:dev-$BITBUCKET_BRANCH#$BITBUCKET_COMMIT
+        artifacts:
+          - __PIPELINE_WORKDIR/**
+        caches:
+          - composer
+    - parallel:
+        - step:
+            name: Test
+            script:
+              - cd __PIPELINE_WORKDIR
+              - cat .env.test.local
+              - set -a
+              - source .env.test.local
+              - set +a
+              - mkdir -p html/sites/default/files
+              # Run the tests from the module's install directory. PHPUnit spawns child processes that will
+              # otherwise not be able to find the used configuration file and bootstrap.
+              - cd html/modules/contrib/$EXTENSION_MODULE_NAME
+              - $BITBUCKET_CLONE_DIR/__PIPELINE_WORKDIR/vendor/bin/phpunit --log-junit $BITBUCKET_CLONE_DIR/test-reports/phpunit.xml
+        - step:
+            name: Drupal Coding Standards
+            script:
+              - cd __PIPELINE_WORKDIR
+              - cat .env.test.local
+              - set -a
+              - source .env.test.local
+              - set +a
+              - ./vendor/bin/phpcs html/modules/contrib/$EXTENSION_MODULE_NAME
+        - step:
+            name: PHP Coding Standards
+            script:
+              - cd __PIPELINE_WORKDIR
+              - cat .env.test.local
+              - set -a
+              - source .env.test.local
+              - set +a
+              - ./vendor/bin/phpstan analyse -c html/modules/contrib/$EXTENSION_MODULE_NAME/phpstan.neon html/modules/contrib/$EXTENSION_MODULE_NAME

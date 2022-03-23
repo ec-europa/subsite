@@ -1,0 +1,4 @@
+administer oec footer settings:
+  title: 'Administer OEC footer settings'
+  description: 'Provide access to the OEC Footer settings page'
+  restrict access: true

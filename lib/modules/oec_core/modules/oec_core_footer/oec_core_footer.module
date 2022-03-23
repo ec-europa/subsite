@@ -1,0 +1,169 @@
+<?php
+
+/**
+ * @file
+ * Contains oec_core module file.
+ */
+
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\oec_core_footer\Form\OecCoreFooterSettingsForm;
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function oec_core_footer_theme_suggestions_region_alter(array &$suggestions, array $variables): array {
+  if (!empty($variables['elements']['#region'])) {
+    $settings = \Drupal::config(OecCoreFooterSettingsForm::SETTINGS);
+    $suggestions[] = 'region__' . $variables['elements']['#region'] . '__oec_' . $settings->get('footer_style');
+  }
+
+  return $suggestions;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function oec_core_footer_theme(): array {
+  return [
+    'region__footer__oec_ec' => [
+      'base hook' => 'region',
+    ],
+    'region__footer__oec_eu' => [
+      'base hook' => 'region',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for "region--footer--oec-eu.html.twig".
+ */
+function oec_core_footer_preprocess_region__footer__oec_eu(array &$variables): void {
+  $variables['site_name'] = \Drupal::config('system.site')->get('name');
+  $variables['langcode'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
+
+  // Set social media links into template.
+  $variables['social_media_links'] = \Drupal::config(OecCoreFooterSettingsForm::SETTINGS)->get('social_media_links') ?: [];
+
+  // Load "footer" menu. The menu is used above the blue line of the template.
+  /** @var \Drupal\menu_link_content\MenuLinkContentInterface[] $menu_items */
+  $menu_items = \Drupal::entityTypeManager()->getStorage('menu_link_content')
+    ->loadByProperties(['menu_name' => 'footer']);
+
+  foreach ($menu_items as $link) {
+    $url = Url::fromUri($link->get('link')->uri, [
+      'attributes' => [
+        'class' => [
+          'ecl-footer__identity-link',
+          'ecl-link',
+          'ecl-link--standalone',
+        ],
+        'aria-label' => $link->label(),
+      ],
+    ]);
+    $variables['footer_menu'][] = Link::fromTextAndUrl((string) $link->label(), $url)->toRenderable();
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for "region--footer--oec-ec.html.twig".
+ */
+function oec_core_footer_preprocess_region__footer__oec_ec(array &$variables): void {
+  $variables['langcode'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for "system_theme_settings".
+ */
+function oec_core_footer_form_system_theme_settings_alter(array &$form, FormStateInterface &$form_state): void {
+  $account = \Drupal::currentUser();
+  // Predefine these settings for non-administrators.
+  if (!$account->hasPermission('administer themes')) {
+    // Disable header style settings for CM+.
+    $form['os_header_settings']['header_style']['#attributes']['disabled'] = 'disabled';
+    // Set default value.
+    $form['os_header_settings']['header_style']['#default_value'] = 'two_lines';
+
+    // Hide site logo settings for CM+.
+    $form['logo']['default_logo']['#access'] =
+    $form['logo']['settings']['logo_path']['#access'] =
+    $form['logo']['settings']['logo_upload']['#access'] = FALSE;
+  }
+
+  // Build theme settings.
+  $theme_settings = \Drupal::config('socialblue.settings');
+
+  $oec_settings = [
+    '#type' => 'container',
+    '#tree' => TRUE,
+  ];
+
+  $oec_settings['logo'] = [
+    '#type' => 'radios',
+    '#title' => t('Choose logo'),
+    '#options' => [
+      'logo-eu.svg' => t('European Union logo'),
+      'logo-ec.png' => t('European Commission logo'),
+    ],
+    '#default_value' => $theme_settings->get('oec_settings.logo'),
+  ];
+
+  // Improve UI for administrators.
+  if ($account->hasPermission('administer themes')) {
+    $oec_settings['use_oec_logo'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Use predefined OEC logo'),
+      '#description' => t('You can use one of the predefined settings for the OEC.'),
+      '#default_value' => in_array($form['logo']['settings']['logo_path']['#default_value'], [
+        'logo-eu.svg',
+        'logo-ec.png',
+      ]),
+      '#weight' => -1,
+    ];
+
+    $oec_settings['logo']['#states']['visible'] = [
+      'input[name="oec_settings[use_oec_logo]"]' => ['checked' => TRUE],
+    ];
+
+    $form['logo']['settings']['logo_path']['#states']['disabled'] = [
+      'input[name="oec_settings[use_oec_logo]"]' => ['checked' => TRUE],
+    ];
+  }
+
+  $form['logo']['settings']['oec_settings'] = $oec_settings;
+
+  $form['#submit'][] = 'oec_core_footer_form_system_theme_settings_submit';
+}
+
+/**
+ * Submit callback for oec_core_footer_form_system_theme_settings_alter().
+ *
+ * Allow for CM+ to change only predefined site logos.
+ *
+ * @param array $form
+ *   The submitted form structure.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The state of the submitted form.
+ */
+function oec_core_footer_form_system_theme_settings_submit(array $form, FormStateInterface $form_state): void {
+  $oec_logo = $form_state->getValue(['oec_settings', 'logo']);
+  $config_factory = \Drupal::configFactory();
+
+  $default_scheme = $config_factory->get('system.file')->get('default_scheme');
+  $logo_path = $default_scheme . '://' . $oec_logo;
+
+  // Check if file exists.
+  if (!file_exists($logo_path)) {
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
+    /** @var \Drupal\Core\Extension\ModuleHandlerInterface $module_handler */
+    $module_handler = \Drupal::service('module_handler');
+    $file_system->copy($module_handler->getModule('oec_core_footer')->getPath() . '/assets/logo/' . $oec_logo, $default_scheme . '://');
+  }
+
+  // Sync logo settings.
+  $theme_setting = $config_factory->getEditable('socialblue.settings');
+  $theme_setting->set('logo.path', $logo_path);
+  $theme_setting->save();
+}

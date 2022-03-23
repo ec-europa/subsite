@@ -1,0 +1,7 @@
+social_eu_login.settings:
+  path: '/admin/config/opensocial/eu-login'
+  defaults:
+    _form: '\Drupal\social_eu_login\Form\EULoginSettingsForm'
+    _title: 'Social EU Login settings'
+  requirements:
+    _permission: 'administer social eu login settings'

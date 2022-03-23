@@ -1,0 +1,10 @@
+name: 'Social OE Webtools'
+description: 'Provides OpenEuropa Webtools integration for Open Social.'
+type: module
+core_version_requirement: ^8.8 || ^9
+package: OEC
+project: social_oe_webtools
+dependencies:
+  - oe_webtools:oe_webtools
+  - oe_webtools:oe_webtools_analytics
+php: 7.4

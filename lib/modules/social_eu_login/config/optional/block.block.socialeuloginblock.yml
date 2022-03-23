@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - social_eu_login
+  theme:
+    - socialblue
+id: socialeuloginblock
+theme: socialblue
+region: header_top
+weight: 0
+provider: null
+plugin: social_eu_login_block
+settings:
+  id: social_eu_login_block
+  label: 'Social EU Login Block'
+  provider: social_eu_login
+  label_display: '0'
+  context_mapping:
+    user: '@user.current_user_context:current_user'
+visibility: {  }

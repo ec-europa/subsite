@@ -1,0 +1,9 @@
+parameters:
+  level: 8
+  drupal:
+    drupal_root: %currentWorkingDirectory%/html/core
+  # When writing Drupal code we have arrays all over the place and even all
+  # entities are considered iterable type. Thus it's more sensible to disable
+  # this check than work with an ever expanding baseline.
+  # See https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type
+  checkMissingIterableValueType: false

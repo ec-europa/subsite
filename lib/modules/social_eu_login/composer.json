@@ -1,0 +1,9 @@
+{
+    "name": "goalgorilla/social_eu_login",
+    "type": "drupal-module",
+    "require": {
+        "php": "^7.4",
+        "openeuropa/oe_authentication": "^1.4"
+    },
+    "version": "1.2.1"
+}

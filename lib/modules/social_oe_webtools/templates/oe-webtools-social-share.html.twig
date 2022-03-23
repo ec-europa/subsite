@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Default theme implementation for rendering webtools social share.
+ *
+ * Available variables:
+ * - title: TranslatableMarkup title for the block.
+ * - icons_json: icons rendered by webtools library.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{{ attach_library('oec_core/oec-share') }}
+
+<h4 class="card__title">{{ title }}</h4>
+<div class="card__block">
+  <script type="application/json">{{ icons_json }}</script>
+</div>

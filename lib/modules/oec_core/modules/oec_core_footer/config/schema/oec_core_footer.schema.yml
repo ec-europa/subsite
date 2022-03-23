@@ -1,0 +1,20 @@
+oec_core_footer.settings:
+  type: config_object
+  label: 'Footer settings'
+  mapping:
+    footer_style:
+      type: string
+      label: 'Footer style'
+    social_media_links:
+      type: mapping
+      label: 'Social media links'
+      mapping:
+        facebook:
+          type: string
+          label: 'Facebook'
+        twitter:
+          type: string
+          label: 'Twitter'
+        instagram:
+          type: string
+          label: 'Instagram'

@@ -1,0 +1,4 @@
+administer social eu login settings:
+  title: 'Administer EU Login settings'
+  description: 'Allows the user to access to EU Login settings page'
+  restrict access: TRUE

@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Contains social_eu_login.module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function social_eu_login_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  $account = \Drupal::currentUser();
+  // Disable "Email", "First Name" and "Last Name" fields for editing as
+  // the fields should be synchronized with "OE Authentication"
+  // and provided by this api.
+  // For administrator the ability to edit these fields remains.
+  switch ($form_id) {
+    case 'profile_profile_edit_form':
+      if (!$account->hasPermission('administer profile')) {
+        $form['field_profile_first_name']['#disabled'] = TRUE;
+        $form['field_profile_last_name']['#disabled'] = TRUE;
+      }
+      break;
+
+    case 'user_form':
+      if (!$account->hasPermission('administer account settings')) {
+        $form['account']['mail']['#disabled'] = TRUE;
+      }
+      break;
+  }
+}

@@ -1,0 +1,6 @@
+services:
+  social_eu_login.event_subscriber:
+    class: Drupal\social_eu_login\EventSubscriber\EuLoginAttributesToAccountFieldsSubscriber
+    arguments: ['@entity_type.manager', '@config.factory']
+    tags:
+      - { name: event_subscriber }

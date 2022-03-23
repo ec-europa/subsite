@@ -1,0 +1,9 @@
+name: 'OEC Core Footer'
+description: 'Provides harmonised footer for Open Europa Communities.'
+type: module
+core_version_requirement: ^8.8 || ^9
+package: OEC
+project: oec_core_foter
+php: 7.4
+dependencies:
+  - oec_core:oec_core

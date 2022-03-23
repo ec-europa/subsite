@@ -1,0 +1,14 @@
+parameters:
+  level: 8
+  drupal:
+    drupal_root: %currentWorkingDirectory%/html/core
+  # When writing Drupal code we have arrays all over the place and even all
+  # entities are considered iterable type. Thus it's more sensible to disable
+  # this check than work with an ever expanding baseline.
+  # See https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type
+  checkMissingIterableValueType: false
+  ignoreErrors:
+    # We ignore some very specific errors from Drupal that we know are fine.
+    # The below errors are specifically for magic properties.
+    # Until https://www.drupal.org/project/drupal/issues/3118975 is fixed
+    - '#Unsafe usage of new static\(\)#' # See - https://github.com/mglaman/drupal-check/pull/187

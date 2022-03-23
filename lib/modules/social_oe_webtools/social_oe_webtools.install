@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Lifecycle functions for the social_oe_webtools module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function social_oe_webtools_install(): void {
+  // Install oe_webtools modules.
+  $modules = [
+    'oe_webtools_analytics',
+    'oe_webtools_globan',
+    'oe_webtools_cookie_consent',
+    'oe_webtools_social_share',
+  ];
+  \Drupal::service('module_installer')->install($modules);
+
+  // Shariff module should be replaced with oe_webtools_social_share.
+  \Drupal::service('module_installer')->uninstall([
+    'social_sharing',
+    'shariff',
+  ]);
+}

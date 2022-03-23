@@ -1,0 +1,16 @@
+{
+    "name": "goalgorilla/social_oe_webtools",
+    "description": "OpenEuropa Webtools integration for Open Social.",
+    "type": "drupal-module",
+    "license": "GPL-2.0+",
+    "homepage": "https://bitbucket.org/goalgorilla/social_oe_webtools",
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4",
+        "openeuropa/oe_webtools": "^1.13"
+    },
+    "extra": {
+        "installer-name": "social_oe_webtools"
+    },
+    "version": "1.1.0"
+}
