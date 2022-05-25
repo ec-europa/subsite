@@ -10,7 +10,7 @@ drupal:
     account:
         name: '${env.DRUPAL_ACCOUNT_USERNAME}'
         password: '${env.DRUPAL_ACCOUNT_PASSWORD}'
-        mail: token_project_email       
+        mail: token_project_email
 behat:
     tags: ~@wip
 selenium:

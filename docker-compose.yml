@@ -29,7 +29,6 @@ services:
     image: selenium/standalone-chrome:3.141.59
     environment:
       - DISPLAY=:99
-      - SE_OPTS=-debug
     ports:
       - 5900:5900
     expose:

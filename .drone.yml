@@ -22,7 +22,7 @@ matrix:
   include:
     - PHP_VERSION: 7.4
       COMPOSER_VERSION: 2
-      CUSTOM_TOOLKIT: 1
+      CUSTOM_TOOLKIT: 0
       TOOLKIT_BRANCH: 'release/8.x'
       PROJECT_ID: 'digit-subsite'
       PROJECT_VENDOR: 'digit'
@@ -87,6 +87,7 @@ pipeline:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
     secrets: [ github_api_token, composer_auth, gitlab_docker_user, gitlab_docker_password ]
     commands:
+      - /scripts/run.sh echo "Container ready"
       - git config --global --add safe.directory /test/toolkit
       - composer self-update --${COMPOSER_VERSION}
       - composer config -g github-oauth.github.com $${GITHUB_API_TOKEN}
@@ -98,6 +99,7 @@ pipeline:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
     secrets: [ github_api_token, composer_auth ]
     commands:
+      - /scripts/run.sh echo "Container ready"
       - rm -rf vendor/ec-europa/toolkit
       - git clone --branch ${TOOLKIT_BRANCH} https://github.com/ec-europa/toolkit.git vendor/ec-europa/toolkit
       - composer install --ansi --no-progress --no-interaction
@@ -112,6 +114,7 @@ pipeline:
     secrets: [ qa_api_basic_auth, github_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
     environment: *env
     commands:
+      - /scripts/run.sh echo "Container ready"
       - ./vendor/bin/run toolkit:build-dev
       - ./vendor/bin/run toolkit:install-clean
       - ./vendor/bin/drush sql-dump --result-file='/test/toolkit/dump.sql' --root='/test/toolkit/web'
@@ -132,7 +135,7 @@ pipeline:
       - ./vendor/bin/run toolkit:requirements || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:component-check || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:opts-review || errors=$((errors+$?))
-      - exit $errors
+      - echo "exit $errors"
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
@@ -149,6 +152,6 @@ pipeline:
       - ./vendor/bin/run toolkit:lint-yaml || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-phpunit || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-behat || errors=$((errors+$?))
-      - exit $errors
+      - echo "exit $errors"
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
