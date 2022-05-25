@@ -69,11 +69,9 @@ pipeline:
     group: prepare
     commands:
       - echo PROJECT=$(pwd)
-      - rm -rf /test/toolkit/*
-      - rm -rf .drone.yml
-      - rm -rf .gitignore
-      - rm -rf .git
+      - find . -delete
       - git init
+      - git config --global --add safe.directory /test/toolkit
       - git remote add ${ID} https://github.com/jonhy81/drupal-project.git
       # - git remote add ${ID} git@github.com:ec-europa/${SITE}.git
       - git fetch ${ID}
