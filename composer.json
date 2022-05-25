@@ -19,7 +19,7 @@
         "drupal/core-dev": "^8.9",
         "drupal/drupal-driver": "2.1.1",
         "drupal/drupal-extension": "~4.0",
-        "ec-europa/toolkit": "^4.4"
+        "ec-europa/toolkit": "^8.6"
     },
     "scripts": {
         "post-root-package-install": [
