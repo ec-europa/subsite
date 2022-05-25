@@ -63,6 +63,18 @@ services:
       - MYSQL_DATABASE=drupal
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
 
+  sparql:
+    image: registry.fpfis.eu/openeuropa/triple-store-dev:1.19.0
+    environment:
+      - SPARQL_UPDATE=true
+      - DBA_PASSWORD=dba
+
+  selenium:
+    image: registry.fpfis.eu/fpfis/selenium:standalone-chrome-3.141.59-20210913
+    shm_size: 2gb
+    environment:
+      - DISPLAY=:99
+
 # ==============================================================================
 # Pipelines
 # ==============================================================================
