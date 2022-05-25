@@ -89,7 +89,6 @@ pipeline:
     commands:
       - git config --global --add safe.directory /test/toolkit
       - composer self-update --${COMPOSER_VERSION}
-      - composer config -g http-basic.git.fpfis.eu -- $${GITLAB_DOCKER_USER} $${GITLAB_DOCKER_PASSWORD}
       - composer config -g github-oauth.github.com $${GITHUB_API_TOKEN}
       - composer install --ansi --no-progress --no-interaction
     volumes:
