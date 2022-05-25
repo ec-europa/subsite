@@ -20,124 +20,136 @@ workspace:
 # ==============================================================================
 matrix:
   include:
-    - DRUPAL: "7"
-      TK: "3.3.4"
-      ID: "TK3D7"
-      COMPOSER: "1"
-      SITE: "reps-spain-reference"
-      UPDATE: "no"
-      COMMAND: "ls -lah ./vendor/ec-europa/toolkit"
-    - DRUPAL: "8"
-      TK: "4.4.8"
-      ID: "TK4D8"
-      COMPOSER: "2"
-      SITE: "cnect-futurium-reference"
-      UPDATE: "no"
-      COMMAND: "./vendor/bin/run"
-    - DRUPAL: "8"
-      TK: "8.2.4"
-      ID: "TK8D8"
-      COMPOSER: "2"
-      SITE: "cnect-futurium-reference"
-      UPDATE: "yes"
-      COMMAND: "./vendor/bin/run"
-    - DRUPAL: "9"
-      TK: "8.2.4"
-      ID: "TK8D9"
-      COMPOSER: "2"
-      SITE: "digit-qa-reference"
-      UPDATE: "no"
-      COMMAND: "./vendor/bin/run"
+    - PHP_VERSION: 7.4
+      COMPOSER_VERSION: 2
+      CUSTOM_TOOLKIT: 1
+      TOOLKIT_BRANCH: 'release/8.x'
+      PROJECT_ID: 'digit-subsite'
+      PROJECT_VENDOR: 'digit'
+      PROJECT_DESCRIPTION: 'Digit Subsite test'
+      PROJECT_NAME: 'Subsite'
+      PROJECT_EMAIL: 'subsite@example.com'
+      PROJECT_PROFILE: 'minimal'
+
 
 # ==============================================================================
 # Main services
 # ==============================================================================
 services:
+  web:
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
+    environment: &env
+      - DOCUMENT_ROOT=/test/toolkit
+      - DRUPAL_DATABASE_NAME=drupal
+      - DRUPAL_DATABASE_USERNAME=drone
+      - DRUPAL_DATABASE_PASSWORD=password
+      - DRUPAL_DATABASE_PREFIX=
+      - DRUPAL_DATABASE_HOST=mysql
+      - DRUPAL_DATABASE_PORT=3306
+      - DRUPAL_ACCOUNT_USERNAME=admin
+      - DRUPAL_ACCOUNT_PASSWORD=admin
+      - DRUPAL_SPARQL_HOSTNAME=sparql
+      - DRUPAL_SPARQL_PORT=8890
+      - DRUPAL_BASE_URL=http://web:8080/web
+      - VIRTUAL_HOST=http://web:8080/web
+      - CI_COMMIT_MESSAGE=[SKIP-D9C]
+
   mysql:
     image: registry.fpfis.eu/fpfis/sql:percona-${MYSQL_VERSION=5.7}
     command: --innodb-log-file_size=128M --max-allowed-packet=1G --innodb-buffer-pool-size=512M
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_USER=drone
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=drupal
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
 
 # ==============================================================================
 # Pipelines
 # ==============================================================================
 pipeline:
 
-  grab-site:
-    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    group: prepare
+  prepare-template:
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
+    secrets: [ github_api_token, composer_auth ]
+    environment: *env
     commands:
-      - echo PROJECT=$(pwd)
-      - rm -rf /test/toolkit/*
-      - rm -rf .drone.yml
-      - rm -rf .gitignore
-      - rm -rf .git
-      - git init
-      - git remote add ${ID} https://github.com/jonhy81/drupal-project.git
-      # - git remote add ${ID} git@github.com:ec-europa/${SITE}.git
-      - git fetch ${ID}
-      - git checkout -b ${DRUPAL} --track ${ID}/${DRUPAL}.x # origin/master is clone's default
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_id/${PROJECT_ID}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_vendor/${PROJECT_VENDOR}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_description/${PROJECT_DESCRIPTION}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_name/${PROJECT_NAME}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_email/${PROJECT_EMAIL}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_profile/${PROJECT_PROFILE}/g' {} +
+      - echo "tokens replaced"
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
-  # ============================================================================
-  # Prepare section:
-  # ============================================================================
-  set-composer:
+  install:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    group: prepare
+    secrets: [ github_api_token, composer_auth, gitlab_docker_user, gitlab_docker_password ]
     commands:
-      - composer self-update --${COMPOSER}
-    volumes:
-      - /cache/${DRONE_REPO_NAME}:/cache
-  # ============================================================================
-  # Setup section:
-  # ============================================================================
-  list-files:
-    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    group: pre-setup
-    secrets: [ github_api_token ]
-    commands:
-      - ls -lah
-      - cat composer.json
+      - git config --global --add safe.directory /test/toolkit
+      - composer self-update --${COMPOSER_VERSION}
+      - composer config -g http-basic.git.fpfis.eu -- $${GITLAB_DOCKER_USER} $${GITLAB_DOCKER_PASSWORD}
+      - composer config -g github-oauth.github.com $${GITHUB_API_TOKEN}
+      - composer install --ansi --no-progress --no-interaction
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
-  # ============================================================================
-  # Setup section:
-  # ============================================================================
-  install-drupal:
-    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    group: setup
-    secrets: [ github_api_token ]
+  custom-toolkit:
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
+    secrets: [ github_api_token, composer_auth ]
     commands:
-      - COMPOSER=/test/toolkit/composer.json composer install --ansi --no-suggest --no-progress
+      - rm -rf vendor/ec-europa/toolkit
+      - git clone --branch ${TOOLKIT_BRANCH} https://github.com/ec-europa/toolkit.git vendor/ec-europa/toolkit
+      - composer install --ansi --no-progress --no-interaction
+    volumes:
+      - /cache/${DRONE_REPO_NAME}:/cache
+    when:
+      matrix:
+        CUSTOM_TOOLKIT: 1
+
+  install-clean:
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
+    secrets: [ qa_api_basic_auth, github_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
+    environment: *env
+    commands:
+      - ./vendor/bin/run toolkit:build-dev
+      - ./vendor/bin/run toolkit:install-clean
+      - ./vendor/bin/drush sql-dump --result-file='/test/toolkit/dump.sql' --root='/test/toolkit/web'
+    volumes:
+      - /cache/${DRONE_REPO_NAME}:/cache
+    when:
+      matrix:
+        INSTALL_CLEAN: 1
+
+  toolkit-checks:
+    group: qa
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
+    secrets: [ qa_api_basic_auth, github_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
+    environment: *env
+    commands:
+      - /scripts/run.sh echo "Container ready"
+      - errors=0
+      - ./vendor/bin/run toolkit:requirements || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:component-check || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:opts-review || errors=$((errors+$?))
+      - exit $errors
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
-  # ============================================================================
-  # Update Toolkit
-  # ============================================================================
-  update-toolkit:
-    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    group: update
-    secrets: [ github_api_token ]
+  toolkit-tests:
+    group: qa
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
+    secrets: [ qa_api_basic_auth, github_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
+    environment: *env
     commands:
-      - COMPOSER=/test/toolkit/composer.json composer require --dev ec-europa/toolkit:${TK} --no-interaction
-    volumes:
-      - /cache/${DRONE_REPO_NAME}:/cache
-
-  # ============================================================================
-  # Build section:
-  # ============================================================================
-  test-toolkit:
-    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    group: test
-    secrets: [ github_api_token ]
-    commands:
-      - pwd
-      - ls -lah
-      - ${COMMAND}
+      - /scripts/run.sh echo "Container ready"
+      - errors=0
+      - ./vendor/bin/run toolkit:test-phpcs || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:lint-php || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:lint-yaml || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:test-phpunit || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:test-behat || errors=$((errors+$?))
+      - exit $errors
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
