@@ -97,11 +97,13 @@ pipeline:
 
   custom-toolkit:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
-    secrets: [ github_api_token, composer_auth ]
+    secrets: [ github_api_token, composer_auth, gitlab_docker_user, gitlab_docker_password ]
     commands:
       - /scripts/run.sh echo "Container ready"
       - rm -rf vendor/ec-europa/toolkit
       - git clone --branch ${TOOLKIT_BRANCH} https://github.com/ec-europa/toolkit.git vendor/ec-europa/toolkit
+      - composer self-update --${COMPOSER_VERSION}
+      - composer config -g github-oauth.github.com $${GITHUB_API_TOKEN}
       - composer install --ansi --no-progress --no-interaction
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
@@ -117,12 +119,9 @@ pipeline:
       - /scripts/run.sh echo "Container ready"
       - ./vendor/bin/run toolkit:build-dev
       - ./vendor/bin/run toolkit:install-clean
-      - ./vendor/bin/drush sql-dump --result-file='/test/toolkit/dump.sql' --root='/test/toolkit/web'
+#      - ./vendor/bin/drush sql-dump --result-file='/test/toolkit/dump.sql' --root='/test/toolkit/web'
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
-    when:
-      matrix:
-        INSTALL_CLEAN: 1
 
   toolkit-checks:
     group: qa
