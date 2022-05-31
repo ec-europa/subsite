@@ -1,3 +1,5 @@
+## This branch is deprecated and will be removed, for Drupal 9 projects use branch release/8.x
+
 # token_project_name
 
 [![Build Status](https://drone.fpfis.eu/api/badges/token_vendor/token_project_id-reference/status.svg)](https://drone.fpfis.eu/token_vendor/token_project_id-reference)
