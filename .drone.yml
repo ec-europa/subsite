@@ -20,7 +20,7 @@ workspace:
 # ==============================================================================
 matrix:
   include:
-    - PHP_VERSION: 7.4
+    - PHP_VERSION: 8.1
       COMPOSER_VERSION: 2
       CUSTOM_TOOLKIT: 0
       TOOLKIT_BRANCH: 'release/8.x'
@@ -84,12 +84,12 @@ pipeline:
     secrets: [ github_api_token, composer_auth ]
     environment: *env
     commands:
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' 's/token_project_id/${PROJECT_ID}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' 's/token_project_vendor/${PROJECT_VENDOR}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' 's/token_project_description/${PROJECT_DESCRIPTION}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' 's/token_project_name/${PROJECT_NAME}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' 's/token_project_email/${PROJECT_EMAIL}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' 's/token_project_profile/${PROJECT_PROFILE}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' -e 's/token_project_id/${PROJECT_ID}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' -e 's/token_project_vendor/${PROJECT_VENDOR}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' -e 's/token_project_description/${PROJECT_DESCRIPTION}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' -e 's/token_project_name/${PROJECT_NAME}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' -e 's/token_project_email/${PROJECT_EMAIL}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i '' -e 's/token_project_profile/${PROJECT_PROFILE}/g' {} +
       - echo "tokens replaced"
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
