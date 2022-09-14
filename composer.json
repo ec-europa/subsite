@@ -18,19 +18,27 @@
     "require-dev": {
         "drupal/core-dev": "^10.0",
         "drupal/drupal-driver": "^2.1.1",
-        "ec-europa/toolkit": "^8"
+        "ec-europa/toolkit": "dev-feature/DQA-4441"
     },
     "scripts": {
         "post-root-package-install": [
             "Subsite\\composer\\SetupWizard::setup"
         ]
     },
-    "repositories": {
-        "drupal": {
+    "repositories": [
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/joaocsilva/task-runner"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/joaocsilva/robo-config"
         }
-    },
+    ],
     "extra": {
         "artifacts": {
             "openeuropa/oe_theme": {
