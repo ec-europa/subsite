@@ -165,3 +165,4 @@ pipeline:
       - echo "exit $errors"
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
+
