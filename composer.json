@@ -8,6 +8,7 @@
     "require": {
         "php": ">=7.3",
         "composer/installers": "^2.0",
+        "consolidation/log": "^2.0.2",
         "cweagans/composer-patches": "^1.6",
         "drupal/core": "^10.0",
         "drupal/core-composer-scaffold": "^10.0",
