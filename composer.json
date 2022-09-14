@@ -10,14 +10,14 @@
         "composer/installers": "^2.0",
         "consolidation/log": "^2.0.2",
         "cweagans/composer-patches": "^1.6",
-        "drupal/core": "^10.0",
-        "drupal/core-composer-scaffold": "^10.0",
+        "drupal/core": "^10.0.0-alpha7",
+        "drupal/core-composer-scaffold": "^10.0.0-alpha7",
         "drush/drush": "^10.0 | ^11.0",
         "webflo/drupal-finder": "^1.0",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
-        "drupal/core-dev": "^10.0",
+        "drupal/core-dev": "^10.0.0-alpha7",
         "drupal/drupal-driver": "^2.1.1",
         "ec-europa/toolkit": "dev-feature/DQA-4441"
     },
