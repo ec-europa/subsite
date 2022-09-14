@@ -22,8 +22,8 @@ matrix:
   include:
     - PHP_VERSION: 8.1
       COMPOSER_VERSION: 2
-      CUSTOM_TOOLKIT: 0
-      TOOLKIT_BRANCH: 'release/8.x'
+      CUSTOM_TOOLKIT: 1
+      TOOLKIT_BRANCH: 'feature/DQA-4441'
       PROJECT_ID: 'digit-subsite'
       PROJECT_VENDOR: 'digit'
       PROJECT_DESCRIPTION: 'Digit Subsite test'
