@@ -24,20 +24,15 @@
     "scripts": {
         "post-root-package-install": [
             "Subsite\\composer\\SetupWizard::setup"
+        ],
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
         ]
     },
     "repositories": [
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/joaocsilva/task-runner"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/joaocsilva/robo-config"
         }
     ],
     "extra": {
