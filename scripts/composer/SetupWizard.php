@@ -29,7 +29,7 @@ class SetupWizard {
   public static function setup(Event $event): bool {
     // Ask for the project name, and suggest the various machine names.
     $params = [
-      'project_profile' => 'oe_profile',
+      'project_profile' => 'minimal',
       'project_id' => 'subsite',
       'project_name' => 'My Website',
       'project_vendor' => 'digit',
