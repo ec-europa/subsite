@@ -11,6 +11,9 @@ drupal:
         name: '${env.DRUPAL_ACCOUNT_USERNAME}'
         password: '${env.DRUPAL_ACCOUNT_PASSWORD}'
         mail: token_project_email
+    post_install:
+        - "./vendor/bin/drush theme:enable olivero"
+        - "./vendor/bin/drush config-set system.theme default olivero -y"
 behat:
     tags: ~@wip
 selenium:

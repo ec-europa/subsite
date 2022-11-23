@@ -33,8 +33,8 @@ class SetupWizard {
       'project_id' => 'subsite',
       'project_name' => 'My Website',
       'project_vendor' => 'digit',
-      'project_description' => 'Drupal 8 template for websites hosted in DIGIT.',
-      'project_email' => 'DEVSECOPS Mailbox'
+      'project_description' => 'Drupal 10 template for websites hosted in DIGIT.',
+      'project_email' => 'subsite@example.com'
     ];
 
     $options = [
