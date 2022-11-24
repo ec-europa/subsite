@@ -23,7 +23,7 @@ usage, please refer to its documentation: [ec-europa/toolkit](https://github.com
 
 ## Installation Drupal 9
 The build system for OpenEuropa projects is packaged in a toolkit that can
-be found here: [ec-europa/toolkit](https://github.com/ec-europa/toolkit/tree/release/4.x#user-guide). This is
+be found here: [ec-europa/toolkit](https://github.com/ec-europa/toolkit/tree/release/8.x#user-guide). This is
 the only required composer package to set up your project. To initiate a new
 project you can execute the following command:
 
@@ -41,4 +41,26 @@ docker-compose exec web composer create-project
 This will clone the current repository and install the toolkit. After this is done
 the .git/ files of the template repository will be removed. This sets up a clean
 toolkit that you can `git init` your own project on. For any information on toolkit
-usage, please refer to its documentation: [ec-europa/toolkit](https://github.com/ec-europa/toolkit/tree/release/4.x#user-guide)
+usage, please refer to its documentation: [ec-europa/toolkit](https://github.com/ec-europa/toolkit/tree/release/8.x#user-guide)
+
+## Installation Drupal 10
+The build system for OpenEuropa projects is packaged in a toolkit that can
+be found here: [ec-europa/toolkit](https://github.com/ec-europa/toolkit/tree/release/9.x#user-guide). This is
+the only required composer package to set up your project. To initiate a new
+project you can execute the following command:
+
+```bash
+composer create-project ec-europa/subsite project-folder-name dev-release/9.x
+
+# or in docker way
+
+git clone git@github.com:ec-europa/subsite.git --branch=release/9.x project-folder-name
+cd project-folder-name
+docker-compose up -d
+docker-compose exec web composer create-project
+```
+
+This will clone the current repository and install the toolkit. After this is done
+the .git/ files of the template repository will be removed. This sets up a clean
+toolkit that you can `git init` your own project on. For any information on toolkit
+usage, please refer to its documentation: [ec-europa/toolkit](https://github.com/ec-europa/toolkit/tree/release/9.x#user-guide)
