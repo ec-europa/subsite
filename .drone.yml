@@ -160,8 +160,9 @@ pipeline:
       - errors=0
       - ./vendor/bin/run toolkit:test-phpcs || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-phpmd || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:test-phpstan || echo "PHPStan not found"
-      - ./vendor/bin/run toolkit:test-phpunit || echo "PHPStan not found"
+      - ./vendor/bin/run toolkit:test-phpstan || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:test-phpunit || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:test-behat || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:opts-review || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:lint-php || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:code-review || errors=$((errors+$?))
