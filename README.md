@@ -53,16 +53,8 @@ docker-compose exec web composer install
 docker-compose exec web ./vendor/bin/run toolkit:build-dev
 # Perform a clean installation of the website.
 docker-compose exec web ./vendor/bin/run toolkit:install-clean
-# Or alternatively perform a clean installation of the website in
-# development mode. This will automatically disable caching and enable
-# development modules like devel, devel_generate and kint.
-docker-compose exec web ./vendor/bin/run toolkit:install-clean-dev
 # Perform a clone installation with production data.
 docker-compose exec web ./vendor/bin/run toolkit:install-clone
-# Or alternatively perform a clone installation with production data in
-# development mode. This will automatically disable caching and enable
-# development modules like devel, devel_generate and kint.
-docker-compose exec web ./vendor/bin/run toolkit:install-clone-dev
 ```
 
 Using default configuration your Drupal site will be available locally at:
