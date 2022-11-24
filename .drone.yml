@@ -164,8 +164,6 @@ pipeline:
       - ./vendor/bin/run toolkit:test-phpunit || echo "PHPStan not found"
       - ./vendor/bin/run toolkit:opts-review || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:lint-php || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:lint-yaml || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:lint-js || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:code-review || errors=$((errors+$?))
       - exit $errors
     volumes:
