@@ -9,12 +9,13 @@ services:
       - ${PWD}:${PWD}
       - $HOME/.composer/.auth.json:$HOME/.composer/.auth.json
     environment:
-      ASDA_USER:
-      ASDA_PASSWORD:
+      NEXTCLOUD_USER:
+      NEXTCLOUD_PASSWORD:
       GITHUB_API_TOKEN:
       DOCUMENT_ROOT: ${PWD}
       XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254 remote_port=9000 idekey=PHPSTORM remote_autostart=1"
       PHP_IDE_CONFIG: "serverName=Docker"
+      PHP_MEMORY_LIMIT: "512M"
     env_file:
       - .env
 

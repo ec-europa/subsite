@@ -33,6 +33,7 @@ class SetupWizard {
       'project_id' => 'subsite',
       'project_name' => 'My Website',
       'project_vendor' => 'digit',
+      'vendor' => 'ec-europa',
       'project_description' => 'Drupal 10 template for websites hosted in DIGIT.',
       'project_email' => 'subsite@example.com'
     ];
@@ -46,6 +47,7 @@ class SetupWizard {
     $questions = [
       'project_id' => 'What is the project id?',
       'project_vendor' => 'What vendor will be used?',
+      'vendor' => 'What group will be used? (ec-europa)',
       'project_description' => 'Provide a description.',
       'project_name' => 'What is the Website name?',
       'project_email' => 'Default website mailbox.'

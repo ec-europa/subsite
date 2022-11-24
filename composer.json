@@ -18,6 +18,7 @@
     "require-dev": {
         "drupal/core-dev": "^10",
         "drupal/drupal-driver": "^2.2.0",
+        "drupal/drupal-extension": "^5",
         "ec-europa/toolkit": "^9"
     },
     "scripts": {
