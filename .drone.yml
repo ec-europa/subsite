@@ -26,6 +26,7 @@ matrix:
       TOOLKIT_BRANCH: 'release/8.x'
       PROJECT_ID: 'digit-subsite'
       PROJECT_VENDOR: 'digit'
+      GROUP_VENDOR: 'ec-europa'
       PROJECT_DESCRIPTION: 'Digit Subsite test'
       PROJECT_NAME: 'Subsite'
       PROJECT_EMAIL: 'subsite@example.com'
@@ -86,6 +87,7 @@ pipeline:
     commands:
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_id/${PROJECT_ID}/g' {} +
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_vendor/${PROJECT_VENDOR}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_vendor/${GROUP_VENDOR}/g' {} +
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_description/${PROJECT_DESCRIPTION}/g' {} +
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_name/${PROJECT_NAME}/g' {} +
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_email/${PROJECT_EMAIL}/g' {} +
