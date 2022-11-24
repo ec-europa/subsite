@@ -21,11 +21,11 @@ workspace:
 matrix:
   include:
     - PHP_VERSION: 8.1
-      COMPOSER_VERSION: 2
       CUSTOM_TOOLKIT: 0
       TOOLKIT_BRANCH: 'release/8.x'
       PROJECT_ID: 'digit-subsite'
       PROJECT_VENDOR: 'digit'
+      GROUP_VENDOR: 'ec-europa'
       PROJECT_DESCRIPTION: 'Digit Subsite test'
       PROJECT_NAME: 'Subsite'
       PROJECT_EMAIL: 'subsite@example.com'
@@ -86,6 +86,7 @@ pipeline:
     commands:
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_id/${PROJECT_ID}/g' {} +
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_vendor/${PROJECT_VENDOR}/g' {} +
+      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_vendor/${GROUP_VENDOR}/g' {} +
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_description/${PROJECT_DESCRIPTION}/g' {} +
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_name/${PROJECT_NAME}/g' {} +
       - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_email/${PROJECT_EMAIL}/g' {} +
@@ -100,7 +101,6 @@ pipeline:
     commands:
       - /scripts/run.sh echo "Container ready"
       - git config --global --add safe.directory /test/toolkit
-      - composer self-update --${COMPOSER_VERSION}
       - composer config -g github-oauth.github.com $${GITHUB_API_TOKEN}
       - composer install --ansi --no-progress --no-interaction
     volumes:
@@ -113,7 +113,6 @@ pipeline:
       - /scripts/run.sh echo "Container ready"
       - rm -rf vendor/ec-europa/toolkit
       - git clone --branch ${TOOLKIT_BRANCH} https://github.com/ec-europa/toolkit.git vendor/ec-europa/toolkit
-      - composer self-update --${COMPOSER_VERSION}
       - composer config -g github-oauth.github.com $${GITHUB_API_TOKEN}
       - composer install --ansi --no-progress --no-interaction
     volumes:
@@ -130,7 +129,6 @@ pipeline:
       - /scripts/run.sh echo "Container ready"
       - ./vendor/bin/run toolkit:build-dev
       - ./vendor/bin/run toolkit:install-clean
-#      - ./vendor/bin/drush sql-dump --result-file='/test/toolkit/dump.sql' --root='/test/toolkit/web'
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
@@ -143,9 +141,9 @@ pipeline:
       - /scripts/run.sh echo "Container ready"
       - errors=0
       - ./vendor/bin/run toolkit:requirements || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:component-check || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:component-check || echo 1
       - ./vendor/bin/run toolkit:opts-review || errors=$((errors+$?))
-      - echo "exit $errors"
+      - exit $errors
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
@@ -158,11 +156,14 @@ pipeline:
       - /scripts/run.sh echo "Container ready"
       - errors=0
       - ./vendor/bin/run toolkit:test-phpcs || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:lint-php || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:lint-yaml || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:test-phpmd || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:test-phpstan || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-phpunit || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-behat || errors=$((errors+$?))
-      - echo "exit $errors"
+      - ./vendor/bin/run toolkit:opts-review || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:lint-php || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:code-review || errors=$((errors+$?))
+      - exit $errors
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
