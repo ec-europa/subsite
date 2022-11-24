@@ -5,12 +5,46 @@ drupal:
         profile: token_project_profile
         name: token_project_name
         generate_db_url: false
-        default_theme: subsite
+        default_theme: olivero
         mail: token_project_email
     account:
         name: '${env.DRUPAL_ACCOUNT_USERNAME}'
         password: '${env.DRUPAL_ACCOUNT_PASSWORD}'
         mail: token_project_email
+    post_install:
+        - "./vendor/bin/drush theme:enable olivero"
+        - "./vendor/bin/drush config-set system.theme default olivero -y"
+    additional_settings: |
+        if (intval(getenv('DRUPAL_PROXY_ENABLE')) === 1) {
+            $settings['http_client_config']['proxy']['http'] = getenv('DRUPAL_PROXY_HTTP');
+            $settings['http_client_config']['proxy']['https'] = getenv('DRUPAL_PROXY_HTTPS');
+            $settings['http_client_config']['proxy']['no'] = array_map('trim', explode(',', getenv('DRUPAL_PROXY_NO')));
+        }
+
+        // Set trusted host patterns.
+        if (getenv('DRUPAL_TRUSTED_HOST_PATTERNS')) {
+            $settings['trusted_host_patterns'] = explode(',', getenv('DRUPAL_TRUSTED_HOST_PATTERNS'));
+        }
+
+        // Override site email.
+        $config['system.site']['mail'] = getenv('SMTP_FROM');
+
+        // Varnish purge settings.
+        if (!empty(getenv('DRUPAL_VARNISH_HOSTS'))) {
+            $config['dropsolid_purge.config']['site_name'] = getenv('DRUPAL_SITE_NAME');
+            $config['dropsolid_purge.config']['site_environment'] = getenv('DRUPAL_ENVIRONMENT');
+            $config['dropsolid_purge.config']['site_group'] = getenv('DRUPAL_VARNISH_GROUP');
+            $load_balancers = [];
+            $drupal_flush_cred = getenv('DRUPAL_FLUSH_CREDS');
+            foreach (explode(',', getenv('DRUPAL_VARNISH_HOSTS')) as $ip) {
+                $load_balancers[$ip] = [
+                'ip' => $drupal_flush_cred . '@' . trim($ip),
+                'protocol' => 'http',
+                'port' => '7790',
+                ];
+            }
+            $config['dropsolid_purge.config']['loadbalancers'] = $load_balancers;
+        }
 behat:
     tags: ~@wip
 selenium:
@@ -19,6 +53,8 @@ selenium:
     browser: chrome
 toolkit:
     project_id: token_project_id
+    clone:
+        asda_type: 'nextcloud'
     build:
         dist:
             commands:
