@@ -47,7 +47,7 @@ class SetupWizard {
     $questions = [
       'project_id' => 'What is the project id?',
       'project_vendor' => 'What vendor will be used?',
-      'vendor' => 'What group will be used? (ec-europa)',
+      'vendor' => 'What group will be used?',
       'project_description' => 'Provide a description.',
       'project_name' => 'What is the Website name?',
       'project_email' => 'Default website mailbox.'

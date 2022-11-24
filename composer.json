@@ -16,6 +16,7 @@
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
+        "behat/mink-goutte-driver": "^2.0",
         "drupal/core-dev": "^10",
         "drupal/drupal-driver": "^2.2.0",
         "drupal/drupal-extension": "^5",
