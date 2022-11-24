@@ -21,7 +21,6 @@ workspace:
 matrix:
   include:
     - PHP_VERSION: 8.1
-      COMPOSER_VERSION: 2
       CUSTOM_TOOLKIT: 0
       TOOLKIT_BRANCH: 'release/8.x'
       PROJECT_ID: 'digit-subsite'
@@ -102,7 +101,6 @@ pipeline:
     commands:
       - /scripts/run.sh echo "Container ready"
       - git config --global --add safe.directory /test/toolkit
-      - composer self-update --${COMPOSER_VERSION}
       - composer config -g github-oauth.github.com $${GITHUB_API_TOKEN}
       - composer install --ansi --no-progress --no-interaction
     volumes:
@@ -115,7 +113,6 @@ pipeline:
       - /scripts/run.sh echo "Container ready"
       - rm -rf vendor/ec-europa/toolkit
       - git clone --branch ${TOOLKIT_BRANCH} https://github.com/ec-europa/toolkit.git vendor/ec-europa/toolkit
-      - composer self-update --${COMPOSER_VERSION}
       - composer config -g github-oauth.github.com $${GITHUB_API_TOKEN}
       - composer install --ansi --no-progress --no-interaction
     volumes:
