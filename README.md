@@ -27,12 +27,12 @@ database server and selenium server.
 
 By default, docker-compose reads two files, a `docker-compose.yml` and an
 optional `docker-compose.override.yml` file. By convention, the `docker-compose.yml`
-contains your base configuration and it is committed to the repository. This
+contains your base configuration, and it is committed to the repository. This
 file contains a webserver, a mysql server and a selenium server. It very closely
 matches the environment the website is deployed on.
 
 The override file, as its name implies, can contain configuration overrides for
-existing services or it can add entirely new services. This file is never
+existing services, or it can add entirely new services. This file is never
 committed to the repository.
 
 #### 1.3.1 Make your life easier with aliases
@@ -40,21 +40,22 @@ committed to the repository.
 You can shorten the commands listed below by setting an alias in your `.bashrc`
 file:
 ```bash
-alias dcup="dc up -d"
-alias dcweb="dc exec web "
+alias dcup="docker-compose up -d"
+alias dcdown="docker-compose down"
+alias dcweb="docker-compose exec web"
 ```
 
 ### 1.4 Installing the project
 
 ```bash
 # Run composer install in the web service.
-docker-compose exec web composer install
+dcweb composer install
 # Build your development instance of the website.
-docker-compose exec web ./vendor/bin/run toolkit:build-dev
+dcweb ./vendor/bin/run toolkit:build-dev
 # Perform a clean installation of the website.
-docker-compose exec web ./vendor/bin/run toolkit:install-clean
+dcweb ./vendor/bin/run toolkit:install-clean
 # Perform a clone installation with production data.
-docker-compose exec web ./vendor/bin/run toolkit:install-clone
+dcweb ./vendor/bin/run toolkit:install-clone
 ```
 
 Using default configuration your Drupal site will be available locally at:
@@ -66,7 +67,7 @@ Using default configuration your Drupal site will be available locally at:
 setting up a project there it will be available at either:
 - [https://|your-c9-username|.c9.fpfis.tech.ec.europa.eu/web](https://|your-c9-username|.c9.fpfis.tech.ec.europa.eu/web)
   - supports EU Login
-  - http auth by default (request credentials with a teammember)
+  - http auth by default (request credentials with a team member)
 - [https://|aws-machine-id|.vfs.cloud9.eu-west-1.amazonaws.com/web](https://|aws-machine-id|.vfs.cloud9.eu-west-1.amazonaws.com/web)
   - does not support EU Login
   - protected by C9 session
@@ -76,11 +77,11 @@ setting up a project there it will be available at either:
 
 ```bash
 # Run coding standard checks
-docker-compose exec web ./vendor/bin/run toolkit:test-phpcs
+dcweb ./vendor/bin/run toolkit:test-phpcs
 # Run behat tests on a clean installation.
-docker-compose exec web ./vendor/bin/run toolkit:test-behat
+dcweb ./vendor/bin/run toolkit:test-behat
 # Run behat tests on a clone installation.
-docker-compose exec web ./vendor/bin/run toolkit:test-behat -D "behat.tags=@clone"
+dcweb ./vendor/bin/run toolkit:test-behat -D "behat.tags=@clone"
 ```
 
 ### 1.6 Updating composer.lock
@@ -89,5 +90,5 @@ When having a conflict on the composer.lock file it is best to solve the conflic
 manually and then update the lock file.
 
 ```bash
-docker-compose exec web composer update --lock
+dcweb composer update --lock
 ```

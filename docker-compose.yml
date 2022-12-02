@@ -1,38 +1,61 @@
 version: '2'
 services:
   web:
-    image: fpfis/httpd-php:7.3-dev
+    image: fpfis/httpd-php:8.1-dev
     working_dir: ${PWD}
     ports:
-      - 8080:8080
+      - "8080:8080"
     volumes:
-      - ${PWD}:${PWD}
-      - $HOME/.composer/.auth.json:$HOME/.composer/.auth.json
+      - ${PWD}:${PWD} # Non Mac users.
+      # - nfsmount:${PWD} # Mac Users with the nfsmount volume.
     environment:
-      ASDA_USER:
-      ASDA_PASSWORD:
-      GITHUB_API_TOKEN:
       DOCUMENT_ROOT: ${PWD}
-      XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254 remote_port=9000 idekey=PHPSTORM remote_autostart=1"
+      # By leaving these variables empty Docker Compose will set them to their host values.
+      NEXTCLOUD_USER:
+      NEXTCLOUD_PASS:
+      GITHUB_API_TOKEN:
+      GITLAB_API_TOKEN:
+      QA_API_BASIC_AUTH:
+      QA_WEBSITE_URL:
+      ENV: "development"
+      PHP_MEMORY_LIMIT: "512M"
+      # XDEBUG CONFIGURATION
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9003 remote_enable=1
       PHP_IDE_CONFIG: "serverName=Docker"
+      # For Xdebug setup, run this command in the terminal:
+      # For Mac users: sudo ifconfig en0 alias 10.254.254.254 255.255.255.0
+      # For Linux users: sudo ip addr add 10.254.254.254/32 dev lo label lo:1
     env_file:
       - .env
 
   mysql:
     image: percona/percona-server:5.7
+    command: --innodb-log-file_size=2G --max-allowed-packet=1G --innodb-buffer-pool-size=512M --wait-timeout=31536000
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - mysql:/var/lib/mysql
 
   selenium:
-    image: selenium/standalone-chrome:3.141.59
+    image: selenium/standalone-chrome:4.1.3-20220405
+    volumes:
+      - /dev/shm:/dev/shm
+    shm_size: '2gb'
     environment:
       - DISPLAY=:99
     ports:
-      - 5900:5900
+      - "5900:5900"
     expose:
       - 4444
 
 volumes:
   mysql:
+
+  # Mac users: uncomment the "nfsmount" key to enable the NFS file sharing.
+  # @see https://github.com/openeuropa/documentation/blob/master/docs/development/tooling.md#using-docker-on-macos
+  # nfsmount:
+  #   driver: local
+  #   driver_opts:
+  #     type: nfs
+  #     o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+  #     device: ":${PWD}/"

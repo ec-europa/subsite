@@ -1,0 +1,13 @@
+diff --git a/src/Drupal/DrupalDriverManager.php b/src/Drupal/DrupalDriverManager.php
+index 14ce64c..1e14085 100755
+--- a/src/Drupal/DrupalDriverManager.php
++++ b/src/Drupal/DrupalDriverManager.php
+@@ -64,7 +64,7 @@ class DrupalDriverManager implements DrupalDriverManagerInterface
+      */
+     public function getDriver($name = null)
+     {
+-        $name = strtolower($name) ?: $this->defaultDriverName;
++        $name = !is_null($name) ? strtolower($name) : $this->defaultDriverName;
+ 
+         if (null === $name) {
+             throw new \InvalidArgumentException('Specify a Drupal driver to get.');
