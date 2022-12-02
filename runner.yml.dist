@@ -38,9 +38,9 @@ drupal:
             $drupal_flush_cred = getenv('DRUPAL_FLUSH_CREDS');
             foreach (explode(',', getenv('DRUPAL_VARNISH_HOSTS')) as $ip) {
                 $load_balancers[$ip] = [
-                  'ip' => $drupal_flush_cred . '@' . trim($ip),
-                  'protocol' => 'http',
-                  'port' => '7790',
+                    'ip' => $drupal_flush_cred . '@' . trim($ip),
+                    'protocol' => 'http',
+                    'port' => '7790',
                 ];
             }
             $config['dropsolid_purge.config']['loadbalancers'] = $load_balancers;
