@@ -29,20 +29,20 @@ class SetupWizard {
   public static function setup(Event $event): bool {
     // Ask for the project name, and suggest the various machine names.
     $params = [
-      'project_profile' => 'openeuropa',
+      'project_profile' => 'minimal',
       'project_id' => 'subsite',
       'project_name' => 'My Website',
       'project_vendor' => 'digit',
       'vendor' => 'ec-europa',
       'project_description' => 'Drupal 10 template for websites hosted in DIGIT.',
-      'project_email' => 'subsite@example.com'
+      'project_email' => 'subsite@example.com',
     ];
 
     $options = [
       'minimal',
       'standard',
       'oe_profile',
-      ];
+    ];
 
     $questions = [
       'project_id' => 'What is the project id?',
@@ -50,8 +50,8 @@ class SetupWizard {
       'vendor' => 'What group will be used?',
       'project_description' => 'Provide a description.',
       'project_name' => 'What is the Website name?',
-      'project_email' => 'Default website mailbox.'
-      ];
+      'project_email' => 'Default website mailbox.',
+    ];
 
     // We are providing multiple options for profile.
     $params['project_profile'] = $event->getIO()->select('<info>Select the installation profile?</info> [<comment>' . $params['project_profile'] . '</comment>]? ', $options, $params['project_profile']);
