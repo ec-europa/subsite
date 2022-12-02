@@ -1,0 +1,12 @@
+parameters:
+  monolog.channel_handlers:
+    default: ['default_handler', 'php_handler']
+  monolog.processors: ['message_placeholder', 'current_user', 'request_uri', 'ip', 'referer']
+
+services:
+  monolog.handler.default_handler:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['/var/log/drupal/default.log', 10, '100']
+  monolog.handler.php_handler:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['/var/log/drupal/php.log', 10, '400']
