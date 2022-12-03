@@ -52,18 +52,13 @@ Feature: User authentication
       | path |
       | user |
 
-  Scenario Outline: Users with Administrator role can access admin pages
-    Given I am logged in as a user with the "administrator" role
+  Scenario Outline: Test access to admin pages
+    Given I am logged in as a user with the "access administration pages" permission
     When I go to "<path>"
     Then I should get a 200 HTTP response
 
     Examples:
-      | path             |
-      | admin            |
-      | admin/appearance |
-      | admin/config     |
-      | admin/content    |
-      | admin/people     |
-      | admin/structure  |
-      | node/add         |
-      | user/1           |
+      | path            |
+      | admin           |
+      | admin/config    |
+      | admin/structure |
