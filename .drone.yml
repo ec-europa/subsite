@@ -23,7 +23,7 @@ matrix:
     - PHP_VERSION: 8.1
       CUSTOM_TOOLKIT: 0
       TOOLKIT_BRANCH: 'release/9.x'
-      PROJECT_ID: 'digit-subsite'
+      PROJECT_ID: 'digit-qa'
       PROJECT_VENDOR: 'digit'
       PROJECT_OWNER: 'ec-europa'
       PROJECT_DESCRIPTION: 'Digit Subsite test'
@@ -154,7 +154,7 @@ pipeline:
     commands:
       - /scripts/run.sh echo "Container ready"
       - errors=0
-      - ./vendor/bin/run toolkit:code-review -Dtoolkit.project_id=digit-qa || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:code-review || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-phpmd || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-phpunit || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-behat || errors=$((errors+$?))
