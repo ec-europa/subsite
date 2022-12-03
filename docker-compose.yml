@@ -12,7 +12,7 @@ services:
       DOCUMENT_ROOT: ${PWD}
       # By leaving these variables empty Docker Compose will set them to their host values.
       NEXTCLOUD_USER:
-      NEXTCLOUD_PASSWORD:
+      NEXTCLOUD_PASS:
       GITHUB_API_TOKEN:
       GITLAB_API_TOKEN:
       QA_API_BASIC_AUTH:
