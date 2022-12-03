@@ -10,12 +10,12 @@ contains the subsite templates that are used to build the projects.
 
 A specific branch is provided for each Drupal core version.
 
-| Branch                                                                 | Drupal Core | Toolkit | PHP version |
-|------------------------------------------------------------------------|-------------|---------|-------------|
-| [`release/7.x`](https://github.com/ec-europa/subsite/tree/release/7.x) | ^7.91       | ^3.6.6  | 7.4         |
-| [`release/8.x`](https://github.com/ec-europa/subsite/tree/release/8.x) | ^9.4.7      | ^8.6.17 | &gt;=8.0    |
-| [`release/9.x`](https://github.com/ec-europa/subsite/tree/release/9.x) | ^9.4.7      | ^9.2    | &gt;=8.1    |
-| [`release/10.x`](https://github.com/ec-europa/subsite/tree/release/10.x) | ^10.0       | ^9.2    | &gt;=8.1    |
+| Branch                                                                   | Drupal Core | Toolkit version | PHP version | MySQL version |
+|--------------------------------------------------------------------------|-------------|-----------------|-------------|---------------|
+| [`release/7.x`](https://github.com/ec-europa/subsite/tree/release/7.x)   | ^7.91       | ^3.6.6          | 7.4         | 5.7           |
+| [`release/8.x`](https://github.com/ec-europa/subsite/tree/release/8.x)   | ^9.4.7      | ^8.6.17         | &gt;=8.0    | 5.7           |
+| [`release/9.x`](https://github.com/ec-europa/subsite/tree/release/9.x)   | ^9.4.7      | ^9.2            | &gt;=8.1    | 8.0           |
+| [`release/10.x`](https://github.com/ec-europa/subsite/tree/release/10.x) | ^10.0       | ^9.2            | &gt;=8.1    | 8.0           |
 
 ## Installation
 
