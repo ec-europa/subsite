@@ -82,7 +82,7 @@ pipeline:
 
   prepare-template:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
-    secrets: [ github_api_token, gitlab_api_token, composer_auth ]
+    secrets: [ github_api_token, composer_auth ]
     environment: *env
     commands:
       - find ./ -type f ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_id/${PROJECT_ID}/g' {} +
@@ -146,7 +146,6 @@ pipeline:
       - errors=0
       - ./vendor/bin/run toolkit:requirements || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:component-check || echo 1
-      - ./vendor/bin/run toolkit:opts-review -Dtoolkit.project_id=digit-qa || errors=$((errors+$?))
       - exit $errors
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
@@ -159,11 +158,10 @@ pipeline:
     commands:
       - /scripts/run.sh echo "Container ready"
       - errors=0
-      - ./vendor/bin/run toolkit:test-phpcs || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:lint-php || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:lint-yaml || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:code-review -Dtoolkit.project_id=digit-qa || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:test-phpmd || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-phpunit || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-behat || errors=$((errors+$?))
-      - echo "exit $errors"
+      - exit $errors
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
