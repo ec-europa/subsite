@@ -1,0 +1,9 @@
+workspace:
+  base: /test
+  path: default
+
+pipeline:
+  default-message:
+    image: alpine:latest
+    commands:
+      - echo -e "Subsite documentation pipeline."
