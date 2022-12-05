@@ -34,7 +34,7 @@ services:
       - mysql:/var/lib/mysql
 
   selenium:
-    image: selenium/standalone-chrome:3.141.59
+    image: selenium/standalone-chrome:4.1.3-20220405
     environment:
       - DISPLAY=:99
     ports:
