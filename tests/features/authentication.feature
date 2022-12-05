@@ -1,3 +1,4 @@
+@api
 Feature: User authentication
   In order to protect the integrity of the website
   As a product owner
@@ -43,7 +44,6 @@ Feature: User authentication
       | node/add         |
       | user/1           |
 
-  @api
   Scenario Outline: Authenticated user can access pages they are authorized to
     Given I am logged in as a user with the "authenticated" role
     Then I visit "<path>"
@@ -52,21 +52,13 @@ Feature: User authentication
       | path |
       | user |
 
-  @api
-  Scenario Outline: Authenticated user cannot access site administration
-    Given I am logged in as a user with the "authenticated" role
+  Scenario Outline: Test access to admin pages
+    Given I am logged in as a user with the "access administration pages" permission
     When I go to "<path>"
-    Then I should get an access denied error
+    Then I should get a 200 HTTP response
 
     Examples:
-      | path             |
-      | admin            |
-      | admin/appearance |
-      | admin/config     |
-      | admin/content    |
-      | admin/people     |
-      | admin/structure  |
-      # To do: the 'node/' path should be disabled on most Drupal sites.
-      # | node            |
-      | node/add         |
-      | user/1           |
+      | path            |
+      | admin           |
+      | admin/config    |
+      | admin/structure |

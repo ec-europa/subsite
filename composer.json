@@ -14,11 +14,11 @@
         "drush/drush": "^10 | ^11"
     },
     "require-dev": {
-        "behat/mink-goutte-driver": "^2.0",
+        "behat/mink-goutte-driver": "^1.0 || ^2.0",
         "drupal/core-dev": "^10",
         "drupal/drupal-driver": "^2.2.0",
-        "drupal/drupal-extension": "^5",
-        "ec-europa/toolkit": "^9"
+        "drupal/drupal-extension": "~4.0 || ^5",
+        "ec-europa/toolkit": "^9.2"
     },
     "scripts": {
         "post-root-package-install": [
@@ -32,6 +32,14 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/openeuropa/oe_dashboard_agent"
+        },
+        {
+            "type": "path",
+            "url": "lib/*/*"
         }
     ],
     "extra": {
