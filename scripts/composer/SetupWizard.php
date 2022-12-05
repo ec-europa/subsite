@@ -33,23 +33,25 @@ class SetupWizard {
       'project_id' => 'subsite',
       'project_name' => 'My Website',
       'project_vendor' => 'digit',
+      'vendor' => 'ec-europa',
       'project_description' => 'Drupal 8 template for websites hosted in DIGIT.',
-      'project_email' => 'DEVSECOPS Mailbox'
+      'project_email' => 'subsite@example.com',
     ];
 
     $options = [
       'minimal',
       'standard',
       'oe_profile',
-      ];
+    ];
 
     $questions = [
       'project_id' => 'What is the project id?',
       'project_vendor' => 'What vendor will be used?',
+      'vendor' => 'What group will be used?',
       'project_description' => 'Provide a description.',
       'project_name' => 'What is the Website name?',
-      'project_email' => 'Default website mailbox.'
-      ];
+      'project_email' => 'Default website mailbox.',
+    ];
 
     // We are providing multiple options for profile.
     $params['project_profile'] = $event->getIO()->select('<info>Select the installation profile?</info> [<comment>' . $params['project_profile'] . '</comment>]? ', $options, $params['project_profile']);

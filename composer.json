@@ -6,13 +6,13 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.3",
-        "composer/installers": "^1.9",
+        "php": ">=8.0",
+        "composer/installers": "^1.9 || ^2.2",
         "consolidation/annotated-command": "^4.5 <4.5.7",
-        "cweagans/composer-patches": "^1.6",
+        "cweagans/composer-patches": "^1.7",
         "drupal/core": "^9",
         "drupal/core-composer-scaffold": "^9",
-        "drush/drush": "^10.0 | ^11.0",
+        "drush/drush": "^10 | ^11",
         "webflo/drupal-finder": "^1.0",
         "webmozart/path-util": "^2.3"
     },
@@ -30,21 +30,21 @@
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
         ]
     },
-    "repositories": {
-        "drupal": {
+    "repositories": [
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        }
-    },
-    "extra": {
-        "artifacts": {
-            "openeuropa/oe_theme": {
-                "dist": {
-                    "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.tar.gz",
-                    "type": "tar"
-                }
-            }
         },
+        {
+            "type": "vcs",
+            "url": "https://github.com/openeuropa/oe_dashboard_agent"
+        },
+        {
+            "type": "path",
+            "url": "lib/*/*"
+        }
+    ],
+    "extra": {
         "drupal-scaffold": {
             "allowed-packages": [
                 "drupal/core"

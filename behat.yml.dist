@@ -55,3 +55,9 @@ default:
         log_out: 'Log out'
   formatters:
     progress: ~
+
+clean:
+  suites:
+    default:
+      filters:
+        tags: "${behat.tags}"
