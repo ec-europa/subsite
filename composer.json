@@ -9,16 +9,16 @@
         "php": ">=8.1",
         "composer/installers": "^2.2",
         "cweagans/composer-patches": "^1.7",
-        "drupal/core": "^10",
-        "drupal/core-composer-scaffold": "^10",
+        "drupal/core": "^9",
+        "drupal/core-composer-scaffold": "^9",
         "drush/drush": "^10 | ^11"
     },
     "require-dev": {
-        "behat/mink-goutte-driver": "^2.0",
-        "drupal/core-dev": "^10",
+        "behat/mink-goutte-driver": "^1.0 || ^2.0",
+        "drupal/core-dev": "^9",
         "drupal/drupal-driver": "^2.2.0",
-        "drupal/drupal-extension": "^5",
-        "ec-europa/toolkit": "^9"
+        "drupal/drupal-extension": "~4.0 || ^5",
+        "ec-europa/toolkit": "^9.2"
     },
     "scripts": {
         "post-root-package-install": [
@@ -32,6 +32,14 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/openeuropa/oe_dashboard_agent"
+        },
+        {
+            "type": "path",
+            "url": "lib/*/*"
         }
     ],
     "extra": {

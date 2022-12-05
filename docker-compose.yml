@@ -4,18 +4,25 @@ services:
     image: fpfis/httpd-php:8.1-dev
     working_dir: ${PWD}
     ports:
-      - 8080:8080
+      - "8080:8080"
     volumes:
       - ${PWD}:${PWD}
-      - $HOME/.composer/.auth.json:$HOME/.composer/.auth.json
+      # - $HOME/.composer/.auth.json:$HOME/.composer/.auth.json
     environment:
-      NEXTCLOUD_USER:
-      NEXTCLOUD_PASSWORD:
-      GITHUB_API_TOKEN:
       DOCUMENT_ROOT: ${PWD}
-      XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254 remote_port=9000 idekey=PHPSTORM remote_autostart=1"
+      # By leaving these variables empty Docker Compose will set them to their host values.
+      NEXTCLOUD_USER:
+      NEXTCLOUD_PASS:
+      GITHUB_API_TOKEN:
+      GITLAB_API_TOKEN:
+      QA_API_BASIC_AUTH:
+      QA_WEBSITE_URL:
+      # XDEBUG CONFIGURATION.
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9003 remote_enable=1
       PHP_IDE_CONFIG: "serverName=Docker"
-      PHP_MEMORY_LIMIT: "512M"
+      # For Xdebug setup, run this command in the terminal:
+      # For Mac users: sudo ifconfig en0 alias 10.254.254.254 255.255.255.0
+      # For Linux users: sudo ip addr add 10.254.254.254/32 dev lo label lo:1
     env_file:
       - .env
 
@@ -27,11 +34,11 @@ services:
       - mysql:/var/lib/mysql
 
   selenium:
-    image: selenium/standalone-chrome:3.141.59
+    image: selenium/standalone-chrome:4.1.3-20220405
     environment:
       - DISPLAY=:99
     ports:
-      - 5900:5900
+      - "5900:5900"
     expose:
       - 4444
 

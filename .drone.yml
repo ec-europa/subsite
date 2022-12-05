@@ -22,10 +22,10 @@ matrix:
   include:
     - PHP_VERSION: 8.1
       CUSTOM_TOOLKIT: 0
-      TOOLKIT_BRANCH: 'release/8.x'
-      PROJECT_ID: 'digit-subsite'
+      TOOLKIT_BRANCH: 'release/9.x'
+      PROJECT_ID: 'digit-qa'
       PROJECT_VENDOR: 'digit'
-      GROUP_VENDOR: 'ec-europa'
+      PROJECT_OWNER: 'ec-europa'
       PROJECT_DESCRIPTION: 'Digit Subsite test'
       PROJECT_NAME: 'Subsite'
       PROJECT_EMAIL: 'subsite@example.com'
@@ -84,20 +84,20 @@ pipeline:
     secrets: [ github_api_token, composer_auth ]
     environment: *env
     commands:
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_id/${PROJECT_ID}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_vendor/${PROJECT_VENDOR}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_vendor/${GROUP_VENDOR}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_description/${PROJECT_DESCRIPTION}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_name/${PROJECT_NAME}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_email/${PROJECT_EMAIL}/g' {} +
-      - find ./ -type f  ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_profile/${PROJECT_PROFILE}/g' {} +
+      - find ./ -type f ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_id/${PROJECT_ID}/g' {} +
+      - find ./ -type f ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_vendor/${PROJECT_VENDOR}/g' {} +
+      - find ./ -type f ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_vendor/${PROJECT_OWNER}/g' {} +
+      - find ./ -type f ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_description/${PROJECT_DESCRIPTION}/g' {} +
+      - find ./ -type f ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_name/${PROJECT_NAME}/g' {} +
+      - find ./ -type f ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_email/${PROJECT_EMAIL}/g' {} +
+      - find ./ -type f ! -path '*/web/*' ! -path '*/vendor/*' ! -path '*/.git/*' ! -path '*/scripts/*' -exec sed -i 's/token_project_profile/${PROJECT_PROFILE}/g' {} +
       - echo "tokens replaced"
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
 
   install:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.3}-dev
-    secrets: [ github_api_token, composer_auth, gitlab_docker_user, gitlab_docker_password ]
+    secrets: [ github_api_token, gitlab_api_token, composer_auth, gitlab_docker_user, gitlab_docker_password ]
     commands:
       - /scripts/run.sh echo "Container ready"
       - git config --global --add safe.directory /test/toolkit
@@ -108,7 +108,7 @@ pipeline:
 
   custom-toolkit:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
-    secrets: [ github_api_token, composer_auth, gitlab_docker_user, gitlab_docker_password ]
+    secrets: [ github_api_token, gitlab_api_token, composer_auth, gitlab_docker_user, gitlab_docker_password ]
     commands:
       - /scripts/run.sh echo "Container ready"
       - rm -rf vendor/ec-europa/toolkit
@@ -123,7 +123,7 @@ pipeline:
 
   install-clean:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
-    secrets: [ qa_api_basic_auth, github_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
+    secrets: [ qa_api_basic_auth, github_api_token, gitlab_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
     environment: *env
     commands:
       - /scripts/run.sh echo "Container ready"
@@ -135,14 +135,13 @@ pipeline:
   toolkit-checks:
     group: qa
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
-    secrets: [ qa_api_basic_auth, github_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
+    secrets: [ qa_api_basic_auth, github_api_token, gitlab_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
     environment: *env
     commands:
       - /scripts/run.sh echo "Container ready"
       - errors=0
       - ./vendor/bin/run toolkit:requirements || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:component-check || echo 1
-      - ./vendor/bin/run toolkit:opts-review || errors=$((errors+$?))
       - exit $errors
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
@@ -150,20 +149,15 @@ pipeline:
   toolkit-tests:
     group: qa
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION=7.4}-ci
-    secrets: [ qa_api_basic_auth, github_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
+    secrets: [ qa_api_basic_auth, github_api_token, gitlab_api_token, composer_auth, asda_user, asda_password, nextcloud_user, nextcloud_pass ]
     environment: *env
     commands:
       - /scripts/run.sh echo "Container ready"
       - errors=0
-      - ./vendor/bin/run toolkit:test-phpcs || errors=$((errors+$?))
+      - ./vendor/bin/run toolkit:code-review || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-phpmd || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:test-phpstan || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-phpunit || errors=$((errors+$?))
       - ./vendor/bin/run toolkit:test-behat || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:opts-review || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:lint-php || errors=$((errors+$?))
-      - ./vendor/bin/run toolkit:code-review || errors=$((errors+$?))
       - exit $errors
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
-
