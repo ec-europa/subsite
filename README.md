@@ -10,12 +10,14 @@ contains the subsite templates that are used to build the projects.
 
 A specific branch is provided for each Drupal core version.
 
-| Branch                                                                   | Drupal Core | Toolkit version | PHP version | MySQL version |
-|--------------------------------------------------------------------------|-------------|-----------------|-------------|---------------|
-| [`release/7.x`](https://github.com/ec-europa/subsite/tree/release/7.x)   | ^7.91       | ^3.6.6          | 7.4         | 5.7           |
-| [`release/8.x`](https://github.com/ec-europa/subsite/tree/release/8.x)   | ^9.4.7      | ^8.6.17         | &gt;=8.0    | 5.7           |
-| [`release/9.x`](https://github.com/ec-europa/subsite/tree/release/9.x)   | ^9.4.7      | ^9.2            | &gt;=8.1    | 8.0           |
-| [`release/10.x`](https://github.com/ec-europa/subsite/tree/release/10.x) | ^10.0       | ^9.2            | &gt;=8.1    | 8.0           |
+| Branch                                                                   | Drupal Core | Toolkit version | PHP version | MySQL version | Selenium version |
+|--------------------------------------------------------------------------|-------------|-----------------|-------------|---------------|------------------|
+| [`release/7.x`](https://github.com/ec-europa/subsite/tree/release/7.x)   | ^7.91       | ^3.6.6          | 7.4         | 5.7           | 3.141.59         |
+| [`release/8.x`](https://github.com/ec-europa/subsite/tree/release/8.x)   | ^9.4.7      | ^8.6.17         | &gt;=8.0    | 5.7           | 3.141.59         |
+| [`release/9.x`](https://github.com/ec-europa/subsite/tree/release/9.x)   | ^9.4.7      | ^9.2            | &gt;=8.1    | 8.0           | 4.1.3-20220405   |
+| [`release/10.x`](https://github.com/ec-europa/subsite/tree/release/10.x) | ^10.0       | ^9.2            | &gt;=8.1    | 8.0           | 4.1.3-20220405   |
+
+* Note: these are the default values that you can configure.
 
 ## Installation
 
@@ -28,7 +30,10 @@ a new project you can execute the following command (replace the branch to
 fit your needs):
 
 ```bash
-composer create-project ec-europa/subsite dg-project-id dev-release/9.x --no-interaction
+git clone git@github.com:ec-europa/subsite.git --branch=release/9.x project-folder-name
+cd project-folder-name
+docker-compose up -d
+docker-compose exec web composer create-project
 ```
 
 This will clone the current repository and install the toolkit. After this is
