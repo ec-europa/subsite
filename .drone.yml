@@ -1,3 +1,7 @@
+clone:
+  git:
+    image: registry.fpfis.eu/drone-plugins/git:next
+
 workspace:
   base: /test
   path: default
