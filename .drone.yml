@@ -1,13 +1,9 @@
-clone:
-  git:
-    image: registry.fpfis.eu/drone-plugins/git:next
-
 workspace:
   base: /test
   path: default
 
 pipeline:
   default-message:
-    image: alpine:latest
+    image: registry.fpfis.eu/fpfis/httpd-php:8.1-ci
     commands:
       - echo -e "Subsite documentation pipeline."
