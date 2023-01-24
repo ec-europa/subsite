@@ -1,6 +1,6 @@
 # DIGIT TEMPLATES
 
-<img width="50%" src="https://ec.europa.eu/info/sites/info/themes/europa/images/svg/logo/logo--en.svg" />
+<img width="40%" src="https://commission.europa.eu/themes/contrib/oe_theme/dist/ec/images/logo/positive/logo-ec--en.svg" />
 
 The OPEN EUROPA IT Platform is the technical side of the digital
 transformation programme at the European Commission. This composer project
